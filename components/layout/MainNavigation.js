@@ -1,5 +1,4 @@
 import classes from './MainNavigation.module.css'
-import Link from 'next/link'
 import HamMenu from "../generic/HamMenu"
 import Button from "../generic/Button"
 import Cart from "../generic/Cart"
