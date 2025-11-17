@@ -2,6 +2,7 @@ import classes from './MainNavigation.module.css'
 import Link from 'next/link'
 import HamMenu from "../generic/HamMenu"
 import Button from "../generic/Button"
+import Cart from "../generic/Cart"
 import { GiShoppingCart } from 'react-icons/gi'
 import { useState } from 'react'
 
@@ -10,7 +11,7 @@ function MainNavigation() {
 
   let [popupToggle, setPopupToggle] = useState(false)
 
-  function ordersCallback(aNumber) {
+  function cartCallback(aNumber) {
     alert("You clicked the button, and passed: " + aNumber)
   }
 
@@ -45,24 +46,13 @@ function MainNavigation() {
       {/* Ternary operator alternative: */}
       {popupToggle ? <Button text1="Ternary" text2="operator" maxWidth="100px" onClickHandler={() => toggleMenuHide()} /> : null}
       {/* Another conditional rendering alternative: */}
-      {popupToggle && <Button text1="Another JSX" text2="alternative" maxWidth="100px" onClickHandler={() => toggleMenuHide()} />}
-      <Button text2={"Show me A"+testTest} maxWidth="70px" onClickHandler={() => toggleMenuHide()} />
-      <Button text2="Show me B" maxWidth="70px" hide="" onClickHandler={() => toggleMenuHide()} />
-      <Button text2="Show me C" maxWidth="70px" hide=" " onClickHandler={() => toggleMenuHide()} />
       <HamMenu toggleMenuHide={() => toggleMenuHide()} />
-      <div className={classes.logo}>React Meetups</div>
-      <nav>
-        <ul>
-          <li>
-            <Link href='/'>All Meetups</Link>
-          </li>
-          <li>
-            <Link href='/new-meetup'>Add New Meetup</Link>
-          </li>
-        </ul>
-      </nav>
-      <Button text1="Checkout" maxWidth="100px" onClickHandler={() => checkoutCallback()} icon={<GiShoppingCart />} />
-      <Button text2="Orders" maxWidth="70px" onClickHandler={() => ordersCallback(noOfOrders)} />
+      <div className={classes.v1}></div>
+      <div className={classes.gap}></div>
+      <img className={classes.logo} src="Just-feed.png" alt="Logo"/>
+      <div className={classes.gap}></div>
+      <Cart maxWidth="70px" onClickHandler={() => cartCallback(noOfOrders)} icon={<GiShoppingCart />}/>
+      <Button text1="Checkout" maxWidth="100px" onClickHandler={() => checkoutCallback()} />
     </header>
   );
 }
