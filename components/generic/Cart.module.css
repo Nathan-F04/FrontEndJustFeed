@@ -1,0 +1,32 @@
+.mainDiv {
+  padding: 25px 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 46px;
+  background-color: transparent;
+  border: 2px solid #444d44;
+  border-radius: 10px;
+  margin: 5px;
+  transition: background-color 0.4s;
+}
+
+.iconDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: white;
+  font-size: 25px;
+}
+
+.mainDiv:hover {
+  background-color: #444d44;
+  border: 2px solid #777777;
+}
+
+@media screen and (max-width: 768px) {
+  .mainDiv {
+    display: none;
+  }
+}
