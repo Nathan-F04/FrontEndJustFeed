@@ -3,11 +3,11 @@
   height: 5rem;
   display: flex;
   align-items: center;
-  background-color:  #1a2920;
+  background-color:  #d32b2b;
 }
 
 .v1 {
-  border-left: 6px solid green;
+  border-left: 3px solid rgb(98, 110, 98);
   height: 100%;
 }
 
@@ -19,8 +19,8 @@
   font-size: 2rem;
   color: white;
   font-weight: bold;
-  width: 8%;
-  height: 90%;
+  width: 100px;
+  height: 60px;
 }
 
 .header ul {
