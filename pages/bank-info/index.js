@@ -2,12 +2,12 @@
 import NewBankForm from '../../components/meetups/NewBankForm'
 import { useRouter } from 'next/router';
 
-function NewMeetupPage() {
+function BankPage() {
     const router = useRouter();
-    async function addMeetupHandler(enteredMeetupData)  {
-        const response = await fetch('/api/new-meetup', {
+    async function addBankHandler(enteredBankupData)  {
+        const response = await fetch('/api/get-meetings', {
             method: 'POST',
-            body: JSON.stringify(enteredMeetupData),
+            body: JSON.stringify(enteredBankupData),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -16,7 +16,7 @@ function NewMeetupPage() {
         router.push('/');
     }
 
-    return <NewBankForm onAddMeetup={addMeetupHandler} />
+    return <NewBankForm onAddMeetup={addBankHandler} />
 }
 
-export default NewMeetupPage
+export default BankPage
