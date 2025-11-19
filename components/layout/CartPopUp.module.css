@@ -1,0 +1,29 @@
+.mainDiv {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.thePopup {
+  background-color: #36c229;
+  width: 30%;
+  height: 50%;
+  position: absolute;
+  top: 5rem;
+  right: 7rem;
+  min-width: 5%;
+}
+
+.titleDiv{
+  background-color: black;
+  margin-top: 5%;
+  margin-left: 10%;
+}
+
+.buttonDiv{
+  background-color: blue;
+  margin-top: 10%;
+
+}

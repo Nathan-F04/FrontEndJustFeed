@@ -3,11 +3,13 @@ import HamMenu from "../generic/HamMenu"
 import Button from "../generic/Button"
 import Cart from "../generic/Cart"
 import Sidebar from "./Sidebar"
+import CartPopUp from "./CartPopUp"
 import { GiShoppingCart } from 'react-icons/gi'
 import { useState } from 'react'
 
 function MainNavigation() {
   let [popupToggle, setPopupToggle] = useState(false)
+  let [cartpopupToggle, setCartPopupToggle] = useState(false)
 
   function checkoutCallback() {
     alert("You clicked the checkout button")
@@ -17,15 +19,20 @@ function MainNavigation() {
     setPopupToggle(!popupToggle)
   }
 
+   function cartMenuHide() {
+    setCartPopupToggle(!cartpopupToggle)
+  }
+
   return (
     <header className={classes.header}>
       {popupToggle && <Sidebar toggleMenuHide={() => toggleMenuHide()}/>}
+      {cartpopupToggle && <CartPopUp toggleMenuHide={() => cartMenuHide()}/>}
       <HamMenu toggleMenuHide={() => toggleMenuHide()} />
       <div className={classes.v1}></div>
       <div className={classes.gap}></div>
       <img className={classes.logo} src="Just-feed.png" alt="Logo"/>
       <div className={classes.gap}></div>
-      <Cart maxWidth="70px" icon={<GiShoppingCart />}/>
+      <Cart maxWidth="70px" icon={<GiShoppingCart />} toggleMenuHide={() => cartMenuHide()}/>
       <Button text1="Checkout" maxWidth="100px" onClickHandler={() => checkoutCallback()} />
     </header>
   );
