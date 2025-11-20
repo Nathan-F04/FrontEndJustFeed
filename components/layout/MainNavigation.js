@@ -19,14 +19,57 @@ function MainNavigation() {
     setPopupToggle(!popupToggle)
   }
 
-   function cartMenuHide() {
+  function cartMenuHide() {
     setCartPopupToggle(!cartpopupToggle)
   }
+
+  const cartItems = [
+    {
+      image: "Just-feed.png",
+      quantity: 2,
+      price: 1,
+    },
+    {
+      image: "Just-feed.png",
+      quantity: 2,
+      price: 1,
+    },
+    {
+      image: "Just-feed.png",
+      quantity: 2,
+      price: 1,
+    },
+
+    {
+      image: "Just-feed.png",
+      quantity: 2,
+      price: 1,
+    },
+
+    {
+      image: "Just-feed.png",
+      quantity: 2,
+      price: 1,
+    },
+
+
+    {
+      image: "Just-feed.png",
+      quantity: 2,
+      price: 1,
+    },
+
+    {
+      image: "Just-feed.png",
+      quantity: 2,
+      price: 1,
+    },
+  ]
 
   return (
     <header className={classes.header}>
       {popupToggle && <Sidebar toggleMenuHide={() => toggleMenuHide()}/>}
-      {cartpopupToggle && <CartPopUp toggleMenuHide={() => cartMenuHide()}/>}
+      {cartpopupToggle && <CartPopUp cartItems={cartItems} toggleMenuHide={() => cartMenuHide()}/>}
       <HamMenu toggleMenuHide={() => toggleMenuHide()} />
       <div className={classes.v1}></div>
       <div className={classes.gap}></div>

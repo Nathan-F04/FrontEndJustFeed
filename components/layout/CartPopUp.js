@@ -1,21 +1,20 @@
 import classes from "./CartPopUp.module.css"
-import Button from "../generic/Button"
+import CartItem from './CartItem';
 
-export default function Popup(props) {
+export default function CartPopup(props) {
   return (
     <div className={classes.mainDiv} onClick={() => props.toggleMenuHide()}> 
       <div className={classes.thePopup}>
-        <div className={classes.titleDiv}>
-          <Button text1="Checkout" maxWidth="100px" onClickHandler={() => checkoutCallback()}/>
+        <div className={classes.cart}>
+          {props.cartItems.map((cartItems) => (
+            <CartItem
+              image={cartItems.image}
+              quantity={cartItems.quantity}
+              price={cartItems.price}
+            />
+          ))}
         </div>
-        <div className={classes.itemlist}>
-
-        </div>
-        <div className={classes.buttonDiv}>
-          <Button text1="Remove" maxWidth="100px" onClickHandler={() => checkoutCallback()} />
-          <Button text1="Cancel" maxWidth="100px" onClickHandler={() => checkoutCallback()} />
-        </div>
-        </div>
+      </div>
     </div>
   )
 }

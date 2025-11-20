@@ -7,13 +7,14 @@
 }
 
 .thePopup {
-  background-color: #36c229;
+  background-color: #c4ee76;
   width: 30%;
   height: 50%;
   position: absolute;
   top: 5rem;
   right: 7rem;
   min-width: 5%;
+  overflow: scroll;
 }
 
 .titleDiv{

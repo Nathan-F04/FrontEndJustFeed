@@ -1,0 +1,15 @@
+.cartItem {
+    display: flex;
+    flex-direction: row;
+    padding-top: 5%;
+    justify-content: space-evenly;
+}
+
+.cartItemImage {
+    width: 80px;
+    height: 60px;
+}
+
+.cartItemText {
+    font-size: large;
+}
