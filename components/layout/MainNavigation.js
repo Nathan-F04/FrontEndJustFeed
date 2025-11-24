@@ -26,42 +26,35 @@ function MainNavigation() {
   const cartItems = [
     {
       image: "Just-feed.png",
-      quantity: 2,
       price: 1,
     },
     {
       image: "Just-feed.png",
-      quantity: 2,
       price: 1,
     },
     {
       image: "Just-feed.png",
-      quantity: 2,
       price: 1,
     },
 
     {
       image: "Just-feed.png",
-      quantity: 2,
       price: 1,
     },
 
     {
       image: "Just-feed.png",
-      quantity: 2,
       price: 1,
     },
 
 
     {
       image: "Just-feed.png",
-      quantity: 2,
       price: 1,
     },
 
     {
       image: "Just-feed.png",
-      quantity: 2,
       price: 1,
     },
   ]
@@ -75,7 +68,7 @@ function MainNavigation() {
       <div className={classes.gap}></div>
       <img className={classes.logo} src="Just-feed.png" alt="Logo"/>
       <div className={classes.gap}></div>
-      <Cart maxWidth="70px" icon={<GiShoppingCart />} toggleMenuHide={() => cartMenuHide()}/>
+      <Cart maxWidth="70px" icon={<GiShoppingCart/>} toggleMenuHide={() => cartMenuHide()}/>
       <Button text1="Checkout" maxWidth="100px" onClickHandler={() => checkoutCallback()} />
     </header>
   );
