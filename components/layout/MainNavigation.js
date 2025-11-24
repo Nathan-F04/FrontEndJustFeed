@@ -26,35 +26,42 @@ function MainNavigation() {
   const cartItems = [
     {
       image: "Just-feed.png",
+      quantity: 1,
+      price: 2,
+    },
+    {
+      image: "Just-feed.png",
+      quantity: 1,
       price: 1,
     },
     {
       image: "Just-feed.png",
-      price: 1,
-    },
-    {
-      image: "Just-feed.png",
-      price: 1,
-    },
-
-    {
-      image: "Just-feed.png",
-      price: 1,
-    },
-
-    {
-      image: "Just-feed.png",
-      price: 1,
-    },
-
-
-    {
-      image: "Just-feed.png",
+      quantity: 1,
       price: 1,
     },
 
     {
       image: "Just-feed.png",
+      quantity: 1,
+      price: 1,
+    },
+
+    {
+      image: "Just-feed.png",
+      quantity: 1,
+      price: 1,
+    },
+
+
+    {
+      image: "Just-feed.png",
+      quantity: 1,
+      price: 1,
+    },
+
+    {
+      image: "Just-feed.png",
+      quantity: 1,
       price: 1,
     },
   ]

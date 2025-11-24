@@ -1,21 +1,13 @@
 .thePopup {
-  background-color: #c4ee76;
+  background-color: #ffdc69;
   width: 30%;
   height: 50%;
   position: absolute;
   top: 5rem;
   right: 7rem;
   min-width: 5%;
-  overflow: scroll;
-}
-
-.titleDiv{
-  background-color: black;
-  margin-top: 5%;
-  margin-left: 10%;
-}
-
-.buttonDiv{
-  background-color: blue;
-  margin-top: 10%;
+  overflow: auto;
+  border-left: solid 2px;
+  border-right: solid 2px;
+  border-bottom: solid 2px;
 }

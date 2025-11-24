@@ -5,9 +5,27 @@
   align-items: center;
   height: 5px;
   border-radius: 100%;
-  margin-top: 5%;
+  margin-top: 4%;
   background-color: gray;
   transition: background-color 0.4s;
+  color: white;
+}
+
+.xDiv {
+  padding: 10px 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 5px;
+  margin-top: 4%;
+  background-color: gray;
+  color: white;
+
+}
+
+.xDiv:hover {
+  background-color: red;
+  font-weight: bold;
 }
 
 .mainDiv:hover {
@@ -15,7 +33,6 @@
 }
 
 .mainText {
-  color: white;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
