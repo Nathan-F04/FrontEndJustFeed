@@ -33,7 +33,7 @@ function HomePage() {
     if (meetups == null) {
         return null
     } else {
-    return <MeetupList meetups={meetups} />
+        return <MeetupList meetups={meetups} />
     }
 }
 
