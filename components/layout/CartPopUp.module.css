@@ -1,0 +1,13 @@
+.thePopup {
+  background-color: #ffdc69;
+  width: 30%;
+  height: 50%;
+  position: absolute;
+  top: 5rem;
+  right: 7rem;
+  min-width: 5%;
+  overflow: auto;
+  border-left: solid 2px;
+  border-right: solid 2px;
+  border-bottom: solid 2px;
+}

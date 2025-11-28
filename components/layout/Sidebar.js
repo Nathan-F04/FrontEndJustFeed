@@ -1,6 +1,5 @@
 import classes from "./Sidebar.module.css"
 import Link from 'next/link'
-import { GiShoppingCart } from 'react-icons/gi'
 import { IoHomeSharp } from "react-icons/io5";
 import { IoMdSettings } from "react-icons/io";
 import { TbListDetails } from "react-icons/tb";

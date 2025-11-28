@@ -8,7 +8,7 @@ export default function Cart(props) {
   }
 
   return (
-    <div className={classes.mainDiv} style={styleObj} onClick={() => props.onClickHandler()} >
+    <div className={classes.mainDiv} style={styleObj} onClick={() => props.toggleMenuHide()} >
       {props.icon != undefined &&
         <div className={classes.iconDiv}>
            {props.icon}
@@ -17,4 +17,3 @@ export default function Cart(props) {
     </div>
   )
 }
-
