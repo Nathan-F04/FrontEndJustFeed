@@ -72,9 +72,7 @@ function MainNavigation() {
       {cartpopupToggle && <CartPopUp cartItems={cartItems} toggleMenuHide={() => cartMenuHide()}/>}
       <HamMenu toggleMenuHide={() => toggleMenuHide()} />
       <div className={classes.v1}></div>
-      <div className={classes.gap}></div>
-      <img className={classes.logo} src="Just-feed.png" alt="Logo"/>
-      <div className={classes.gap}></div>
+      <img src="Just-feed.png" alt="Logo"/>
       <Cart maxWidth="70px" icon={<GiShoppingCart/>} toggleMenuHide={() => cartMenuHide()}/>
       <Button text1="Checkout" maxWidth="100px" onClickHandler={() => checkoutCallback()} />
     </header>
