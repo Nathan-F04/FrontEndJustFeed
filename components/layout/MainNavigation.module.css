@@ -11,16 +11,13 @@
   height: 100%;
 }
 
-.gap{
-  width:40%
-}
-
-.logo {
+.header img {
   font-size: 2rem;
   color: white;
   font-weight: bold;
   width: 100px;
   height: 60px;
+  margin: auto;
 }
 
 .header ul {

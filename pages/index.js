@@ -8,33 +8,17 @@
 // in order to get the database data.
 // We will fix this and provide a proper solution when we use the Contat API.
 
-import MeetupList from '../components/meetups/BankInfoList'
-import { useState, useEffect } from "react";
+import BankInfoList from '../components/meetups/BankInfoList'
+import { useContext } from "react";
+import GlobalContext from "./store/globalContext"
 
 function HomePage() {
-    const [meetups, setMeetups] = useState(null);
+    const globalCtx = useContext(GlobalContext)
 
-    useEffect(() => {
-        getAllMeetings()
-    }, []);
-
-    async function getAllMeetings() {
-        const response = await fetch('/api/get-meetings', {
-            method: 'POST',
-            body: JSON.stringify({meetups: 'all'}),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        let data = await response.json();
-        setMeetups(data.meetings);
+    if (globalCtx.theGlobalObject.dataLoaded == true) {
+        return <BankInfoList foods={globalCtx.theGlobalObject.foods} />
     }
-
-    if (meetups == null) {
-        return null
-    } else {
-        return <MeetupList meetups={meetups} />
-    }
+    return <BankInfoList foods={globalCtx.theGlobalObject.foods} />
 }
 
 export default HomePage;

@@ -13,12 +13,12 @@ function BankInfoItem(props) {
     <li className={classes.item}>
       <Card>
         <div className={classes.content}>
-          <h3>{props.name}</h3>
-          <p>{props.email}</p>
-          <p>{props.password}</p>
+          <h3>{props.title}</h3>
+          <img src={props.image}/>
+          <p>€ {props.price}</p>
           <p>{props.description}</p>
+          <button onClick={showDetailsHandler}>Add to Cart</button>
         </div>
-          <button onClick={showDetailsHandler}>Show Details</button>
       </Card>
     </li>
   );

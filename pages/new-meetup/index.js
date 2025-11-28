@@ -1,18 +1,15 @@
 // our-dimain.com/new-meetup
 import NewBankForm from '../../components/meetups/NewBankForm'
 import { useRouter } from 'next/router';
+import GlobalContext from "../../pages/store/globalContext"
+import { useContext } from 'react'
 
 function NewMeetupPage() {
-    const router = useRouter();
+    const router = useRouter()
+    const globalCtx = useContext(GlobalContext)
+
     async function addMeetupHandler(enteredMeetupData)  {
-        const response = await fetch('/api/new-meetup', {
-            method: 'POST',
-            body: JSON.stringify(enteredMeetupData),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        const data = await response.json();
+        await globalCtx.updateGlobals({cmd: 'addMeeting', newVal: enteredMeetupData})
         router.push('/');
     }
 
