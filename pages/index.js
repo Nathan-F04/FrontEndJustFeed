@@ -8,7 +8,7 @@
 // in order to get the database data.
 // We will fix this and provide a proper solution when we use the Contat API.
 
-import MeetupList from '../components/meetups/MeetupList'
+import MeetupList from '../components/meetups/BankInfoList'
 import { useState, useEffect } from "react";
 
 function HomePage() {
