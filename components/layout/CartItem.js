@@ -1,14 +1,15 @@
 import classes from './CartItem.module.css'
 import QuantityButton from '../generic/QuantityButton';
-import { useState } from 'react';
+import GlobalContext from '../../pages/store/globalContext';
+import { useState, useContext } from 'react';
 
 function CartItem(props) {
     let [cartNum, setCartNum] = useState(props.quantity)
     let [cartPrice, setCartPrice] = useState(props.price)
-    let [isItemVisable, setIsItemVisable] = useState(true)
+    const globalCtx = useContext(GlobalContext)
 
-    function removeItemHandler(){
-        setIsItemVisable(false)
+    async function removeItemHandler() {
+        globalCtx.updateGlobals({cmd: 'removeCartItem', newVal: props})
     }
     
     function CartIncHandler(){
@@ -24,7 +25,7 @@ function CartItem(props) {
     }
 
     return (
-        isItemVisable && <div className={classes.cartItem}>
+        <div className={classes.cartItem}>
             <img src={props.image} className={classes.cartItemImage}></img>
             <p className={classes.cartItemText}>Quantity: {cartNum}</p>
             <QuantityButton text1="+" onClickHandler={CartIncHandler}/>

@@ -11,6 +11,7 @@ function BankInfoList(props) {
           price={food.price}
           image={food.image}
           description={food.description}
+          quantity={food.quantity}
         />
       ))}
     </ul>

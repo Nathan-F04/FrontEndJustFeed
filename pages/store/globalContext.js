@@ -10,7 +10,7 @@ const GlobalContext = createContext()
 
 export function GlobalContextProvider(props) {
     // TODO: remove this hard coded data later once connected to the database
-    const [globals, setGlobals] = useState({ aString: 'init val', count: 0, hideHamMenu: true, orders: [], dataLoaded: false })
+    const [globals, setGlobals] = useState({ aString: 'init val', count: 0, hideHamMenu: true, orders: [], cartItems: [], dataLoaded: false })
 
     useEffect(() => {
         getAllMeetings()
@@ -45,6 +45,27 @@ export function GlobalContextProvider(props) {
             setGlobals((previousGlobals) => {
                 const newGlobals = JSON.parse(JSON.stringify(previousGlobals))
                 newGlobals.meetings.push(command.newVal); return newGlobals
+            })
+        }
+        if (command.cmd == 'addCartItem') {
+            setGlobals((previousGlobals) => {
+                const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+                newGlobals.cartItems.push(command.newVal);
+                return newGlobals;
+            })
+        }
+        if (command.cmd == 'removeCartItem') {
+            setGlobals((previousGlobals) => {
+                const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+                newGlobals.cartItems.pop(command.newVal);
+                return newGlobals;
+            })
+        }
+        if (command.cmd == 'incCartItem') {
+            setGlobals((previousGlobals) => {
+                const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+                newGlobals.cartItems[command.newVal] = cartItems.quantity++;
+                return newGlobals;
             })
         }
     }

@@ -4,12 +4,14 @@ import Button from "../generic/Button"
 import Cart from "../generic/Cart"
 import Sidebar from "./Sidebar"
 import CartPopUp from "./CartPopUp"
+import GlobalContext from '../../pages/store/globalContext'
 import { GiShoppingCart } from 'react-icons/gi'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 
 function MainNavigation() {
   let [popupToggle, setPopupToggle] = useState(false)
   let [cartpopupToggle, setCartPopupToggle] = useState(false)
+  const globalCtx = useContext(GlobalContext)
 
   function checkoutCallback() {
     alert("You clicked the checkout button")
@@ -23,53 +25,10 @@ function MainNavigation() {
     setCartPopupToggle(!cartpopupToggle)
   }
 
-  const cartItems = [
-    {
-      image: "Just-feed.png",
-      quantity: 1,
-      price: 2,
-    },
-    {
-      image: "Just-feed.png",
-      quantity: 1,
-      price: 1,
-    },
-    {
-      image: "Just-feed.png",
-      quantity: 1,
-      price: 1,
-    },
-
-    {
-      image: "Just-feed.png",
-      quantity: 1,
-      price: 1,
-    },
-
-    {
-      image: "Just-feed.png",
-      quantity: 1,
-      price: 1,
-    },
-
-
-    {
-      image: "Just-feed.png",
-      quantity: 1,
-      price: 1,
-    },
-
-    {
-      image: "Just-feed.png",
-      quantity: 1,
-      price: 1,
-    },
-  ]
-
   return (
     <header className={classes.header}>
       {popupToggle && <Sidebar toggleMenuHide={() => toggleMenuHide()}/>}
-      {cartpopupToggle && <CartPopUp cartItems={cartItems} toggleMenuHide={() => cartMenuHide()}/>}
+      {cartpopupToggle && <CartPopUp cartItems={globalCtx.theGlobalObject.cartItems} toggleMenuHide={() => cartMenuHide()}/>}
       <HamMenu toggleMenuHide={() => toggleMenuHide()} />
       <div className={classes.v1}></div>
       <img className={classes.logo} src="Just-feed.png" alt="Logo"/>
