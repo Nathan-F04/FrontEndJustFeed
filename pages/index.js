@@ -16,9 +16,9 @@ function HomePage() {
     const globalCtx = useContext(GlobalContext)
 
     if (globalCtx.theGlobalObject.dataLoaded == true) {
-        return <BankInfoList foods={globalCtx.theGlobalObject.foods} />
+        return <BankInfoList foods={globalCtx.theGlobalObject.orders} />
     }
-    return <BankInfoList foods={globalCtx.theGlobalObject.foods} />
+    return null
 }
 
 export default HomePage;

@@ -10,45 +10,17 @@ const GlobalContext = createContext()
 
 export function GlobalContextProvider(props) {
     // TODO: remove this hard coded data later once connected to the database
-    const foods = [
-        {
-            foodId: "f1",
-            title: "Test Item",
-            image: "Just-feed.png",
-            price: 23.44,
-            description: "Delicious, Trust!"
-        },
-        {
-            foodId: "f1",
-            title: "Test Item",
-            image: "Just-feed.png",
-            price: 23.44,
-            description: "Delicious, Trust!"
-        },
-        {
-            foodId: "f1",
-            title: "Test Item",
-            image: "Just-feed.png",
-            price: 23.44,
-            description: "Delicious, Trust!"
-        }
-    ]
-    const [globals, setGlobals] = useState({ aString: 'init val', count: 0, hideHamMenu: true, foods: foods, dataLoaded: false })
+    const [globals, setGlobals] = useState({ aString: 'init val', count: 0, hideHamMenu: true, orders: [], cartItems: [], dataLoaded: false })
 
     useEffect(() => {
         getAllMeetings()
     }, []);
 
     async function getAllMeetings() {
-        const response = await fetch('/api/get-meetings', {
-            method: 'POST',
-            body: JSON.stringify({ meetups: 'all' }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+        const response = await fetch('/api/orders');
         let data = await response.json();
-        setGlobals((previousGlobals) => { const newGlobals = JSON.parse(JSON.stringify(previousGlobals)); newGlobals.foods = data.foods; newGlobals.dataLoaded = true; return newGlobals })
+        console.log(data)
+        setGlobals((previousGlobals) => { const newGlobals = JSON.parse(JSON.stringify(previousGlobals)); newGlobals.orders = data; newGlobals.dataLoaded = true; return newGlobals })
     }
 
     async function editGlobalData(command) { // {cmd: someCommand, newVal: 'new text'}
@@ -73,6 +45,20 @@ export function GlobalContextProvider(props) {
             setGlobals((previousGlobals) => {
                 const newGlobals = JSON.parse(JSON.stringify(previousGlobals))
                 newGlobals.meetings.push(command.newVal); return newGlobals
+            })
+        }
+        if (command.cmd == 'addCartItem') {
+            setGlobals((previousGlobals) => {
+                const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+                newGlobals.cartItems.push(command.newVal);
+                return newGlobals;
+            })
+        }
+        if (command.cmd == 'removeCartItem') {
+            setGlobals((previousGlobals) => {
+                const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+                newGlobals.cartItems.pop(command.newVal);
+                return newGlobals;
             })
         }
     }
