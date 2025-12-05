@@ -5,17 +5,19 @@ import Cart from "../generic/Cart"
 import Sidebar from "./Sidebar"
 import CartPopUp from "./CartPopUp"
 import GlobalContext from '../../pages/store/globalContext'
+import { useRouter } from 'next/router'
 import { GiShoppingCart } from 'react-icons/gi'
 import { useState, useContext } from 'react'
 
 function MainNavigation() {
-  let [popupToggle, setPopupToggle] = useState(false)
-  let [cartpopupToggle, setCartPopupToggle] = useState(false)
+  let [popupToggle, setPopupToggle] = useState(false);
+  let [cartpopupToggle, setCartPopupToggle] = useState(false);
   let [cartNum, setCartNum] = useState(1);
-  const globalCtx = useContext(GlobalContext)
+  const globalCtx = useContext(GlobalContext);
+  const router = useRouter();
 
   function checkoutCallback() {
-    alert("You clicked the checkout button")
+    router.push("/checkout");
   }
 
   function toggleMenuHide() {

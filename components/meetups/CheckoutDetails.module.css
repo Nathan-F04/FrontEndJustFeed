@@ -1,0 +1,50 @@
+.item {
+  margin: 1rem 0;
+  list-style: none;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  min-height: 5rem;
+  padding: 1rem;
+}
+
+.orderInfo {
+    display: flex;
+    flex-direction: row;
+    background-color: antiquewhite;
+    background-color: white;
+    border-radius: 0px 0px 6px 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    padding: .2rem;
+}
+
+.orderInfo div {
+    margin: auto;
+}
+
+.orderCard {
+  border-radius: 6px 6px 0px 0px;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  height: 40rem;
+  overflow: auto;
+}
+
+.orderInfo button {
+  font: inherit;
+  cursor: pointer;
+  color:  white;
+  border: 1px solid #77002e;
+  background-color: #310bdd;
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.orderInfo button:hover,
+.orderInfo button:active {
+  background-color: #0d93cc;
+}
