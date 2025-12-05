@@ -11,6 +11,7 @@ import { useState, useContext } from 'react'
 function MainNavigation() {
   let [popupToggle, setPopupToggle] = useState(false)
   let [cartpopupToggle, setCartPopupToggle] = useState(false)
+  let [cartNum, setCartNum] = useState(1);
   const globalCtx = useContext(GlobalContext)
 
   function checkoutCallback() {
@@ -28,13 +29,13 @@ function MainNavigation() {
   return (
     <header className={classes.header}>
       {popupToggle && <Sidebar toggleMenuHide={() => toggleMenuHide()}/>}
-      {cartpopupToggle && <CartPopUp cartItems={globalCtx.theGlobalObject.cartItems} toggleMenuHide={() => cartMenuHide()}/>}
+      {cartpopupToggle && <CartPopUp cartItems={globalCtx.theGlobalObject.cartItems} cartNum={cartNum} setCartNum={setCartNum} toggleMenuHide={() => cartMenuHide()}/>}
       <HamMenu toggleMenuHide={() => toggleMenuHide()} />
       <div className={classes.v1}></div>
       <img className={classes.logo} src="Just-feed.png" alt="Logo"/>
       <Cart maxWidth="70px" icon={<GiShoppingCart/>} toggleMenuHide={() => cartMenuHide()}/>
       <Button text1="Checkout" maxWidth="100px" onClickHandler={() => checkoutCallback()} />
-    </header>
+    </header> 
   );
 }
 

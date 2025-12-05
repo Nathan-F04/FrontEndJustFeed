@@ -61,13 +61,6 @@ export function GlobalContextProvider(props) {
                 return newGlobals;
             })
         }
-        if (command.cmd == 'incCartItem') {
-            setGlobals((previousGlobals) => {
-                const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-                newGlobals.cartItems[command.newVal] = cartItems.quantity++;
-                return newGlobals;
-            })
-        }
     }
 
     const context = {
