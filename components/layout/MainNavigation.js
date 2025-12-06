@@ -4,12 +4,15 @@ import Button from "../generic/Button"
 import Cart from "../generic/Cart"
 import Sidebar from "./Sidebar"
 import CartPopUp from "./CartPopUp"
+import Login from './login'
 import { GiShoppingCart } from 'react-icons/gi'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import GlobalContext from '../../pages/store/globalContext'
 
 function MainNavigation() {
   let [popupToggle, setPopupToggle] = useState(false)
   let [cartpopupToggle, setCartPopupToggle] = useState(false)
+  const globalCtx = useContext(GlobalContext);
 
   function checkoutCallback() {
     alert("You clicked the checkout button")
@@ -68,6 +71,8 @@ function MainNavigation() {
 
   return (
     <header className={classes.header}>
+      {!globalCtx.theGlobalObject.isLoggedIn && <Login/>}
+      {!globalCtx.theGlobalObject.isLoggedIn && <div className={classes.backgroundBlur}></div>}
       {popupToggle && <Sidebar toggleMenuHide={() => toggleMenuHide()}/>}
       {cartpopupToggle && <CartPopUp cartItems={cartItems} toggleMenuHide={() => cartMenuHide()}/>}
       <HamMenu toggleMenuHide={() => toggleMenuHide()} />

@@ -33,7 +33,7 @@ export function GlobalContextProvider(props) {
             description: "Delicious, Trust!"
         }
     ]
-    const [globals, setGlobals] = useState({ aString: 'init val', count: 0, hideHamMenu: true, foods: foods, dataLoaded: false })
+    const [globals, setGlobals] = useState({ aString: 'init val', count: 0, hideHamMenu: true, foods: foods, dataLoaded: false, isLoggedIn: false })
 
     useEffect(() => {
         getAllMeetings()
@@ -73,6 +73,12 @@ export function GlobalContextProvider(props) {
             setGlobals((previousGlobals) => {
                 const newGlobals = JSON.parse(JSON.stringify(previousGlobals))
                 newGlobals.meetings.push(command.newVal); return newGlobals
+            })
+        }
+        if (command.cmd == 'login') {
+            setGlobals((previousGlobals) => {
+                const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+                newGlobals.isLoggedIn = command.newVal; return newGlobals
             })
         }
     }
