@@ -6,9 +6,11 @@ export default function CartPopup(props) {
     <div className={classes.thePopup}>
       {props.cartItems.map((cartItems) => (
         <CartItem
+          key={cartItems.id}
           image={cartItems.image}
-          quantity={cartItems.quantity}
           price={cartItems.price}
+          cartNum={props.cartNum}
+          setCartNum={props.setCartNum}
         />
       ))}
     </div>

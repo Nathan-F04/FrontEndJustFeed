@@ -12,6 +12,7 @@ import GlobalContext from '../../pages/store/globalContext'
 function MainNavigation() {
   let [popupToggle, setPopupToggle] = useState(false)
   let [cartpopupToggle, setCartPopupToggle] = useState(false)
+  let [cartNum, setCartNum] = useState(1);
   const globalCtx = useContext(GlobalContext);
 
   function checkoutCallback() {
@@ -26,61 +27,18 @@ function MainNavigation() {
     setCartPopupToggle(!cartpopupToggle)
   }
 
-  const cartItems = [
-    {
-      image: "Just-feed.png",
-      quantity: 1,
-      price: 2,
-    },
-    {
-      image: "Just-feed.png",
-      quantity: 1,
-      price: 1,
-    },
-    {
-      image: "Just-feed.png",
-      quantity: 1,
-      price: 1,
-    },
-
-    {
-      image: "Just-feed.png",
-      quantity: 1,
-      price: 1,
-    },
-
-    {
-      image: "Just-feed.png",
-      quantity: 1,
-      price: 1,
-    },
-
-
-    {
-      image: "Just-feed.png",
-      quantity: 1,
-      price: 1,
-    },
-
-    {
-      image: "Just-feed.png",
-      quantity: 1,
-      price: 1,
-    },
-  ]
-
   return (
     <header className={classes.header}>
       {!globalCtx.theGlobalObject.isLoggedIn && <Login/>}
       {!globalCtx.theGlobalObject.isLoggedIn && <div className={classes.backgroundBlur}></div>}
       {popupToggle && <Sidebar toggleMenuHide={() => toggleMenuHide()}/>}
-      {cartpopupToggle && <CartPopUp cartItems={cartItems} toggleMenuHide={() => cartMenuHide()}/>}
+      {cartpopupToggle && <CartPopUp cartItems={globalCtx.theGlobalObject.cartItems} cartNum={cartNum} setCartNum={setCartNum} toggleMenuHide={() => cartMenuHide()}/>}
       <HamMenu toggleMenuHide={() => toggleMenuHide()} />
       <div className={classes.v1}></div>
       <img className={classes.logo} src="Just-feed.png" alt="Logo"/>
       <Cart maxWidth="70px" icon={<GiShoppingCart/>} toggleMenuHide={() => cartMenuHide()}/>
       <Button text1="Checkout" maxWidth="100px" onClickHandler={() => checkoutCallback()} />
-    </header>
+    </header> 
   );
 }
 

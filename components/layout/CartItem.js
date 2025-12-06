@@ -1,33 +1,35 @@
 import classes from './CartItem.module.css'
 import QuantityButton from '../generic/QuantityButton';
-import { useState } from 'react';
+import GlobalContext from '../../pages/store/globalContext';
+import { useState, useContext } from 'react';
 
 function CartItem(props) {
-    let [cartNum, setCartNum] = useState(props.quantity)
-    let [cartPrice, setCartPrice] = useState(props.price)
-    let [isItemVisable, setIsItemVisable] = useState(true)
+    const globalCtx = useContext(GlobalContext);
+    let [cartPrice, setCartPrice] = useState(props.price * (props.cartNum));
 
-    function removeItemHandler(){
-        setIsItemVisable(false)
+    async function removeItemHandler() {
+        globalCtx.updateGlobals({cmd: 'removeCartItem', newVal: props});
     }
     
     function CartIncHandler(){
-        setCartNum(cartNum+1)
-        setCartPrice(cartPrice = props.price * (cartNum+1))
+        let newCartNum = props.cartNum + 1;
+        props.setCartNum(newCartNum);
+        setCartPrice(props.price * (newCartNum));
     }
 
     function CartDecHandler(){
-        if(cartNum > 1) {
-            setCartNum(cartNum-1)
-            setCartPrice(cartPrice = props.price * (cartNum-1))
+        if(props.cartNum > 1) {
+            let newCartNum = props.cartNum - 1;
+            props.setCartNum(newCartNum);
+            setCartPrice(props.price * (newCartNum));
         }
     }
 
     return (
-        isItemVisable && <div className={classes.cartItem}>
+        <div className={classes.cartItem}>
             <img src={props.image} className={classes.cartItemImage}></img>
-            <p className={classes.cartItemText}>Quantity: {cartNum}</p>
-            <QuantityButton text1="+" onClickHandler={CartIncHandler}/>
+            <p className={classes.cartItemText}>Quantity: {props.cartNum}</p>
+            <QuantityButton text1="+" onClickHandler={CartIncHandler} />
             <QuantityButton text1="-" onClickHandler={CartDecHandler}/>
             <p className={classes.cartItemText}>Price: {cartPrice}</p>
             <QuantityButton text1="X" onClickHandler={removeItemHandler}/>
