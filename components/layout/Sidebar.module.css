@@ -13,7 +13,7 @@
   height: 30%;
   position: absolute;
   top: 5rem;
-  min-width: 5%;
+  min-width: 5.5rem;
 }
 
 .sidebarItem {
@@ -46,5 +46,11 @@
   flex-direction: column;
   justify-content: space-evenly;
   height: 100%;
+}
+
+.sideLink a {
+  text-decoration: none;
+  color: white;
+  font-size: x-large;
 }
 
