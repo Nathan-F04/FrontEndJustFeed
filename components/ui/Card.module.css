@@ -1,6 +1,19 @@
 .card {
   background-color: white;
+  display: flex;
+  flex-direction: column;
   border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   max-width: 36rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .card {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    max-width: 15rem;
+  }
 }
