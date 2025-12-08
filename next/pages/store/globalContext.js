@@ -9,7 +9,7 @@ import { createContext, useState, useEffect } from 'react'
 const GlobalContext = createContext()
 
 export function GlobalContextProvider(props) {
-    const [globals, setGlobals] = useState({ aString: 'init val', count: 0, hideHamMenu: true, orders: [], cartItems: [], dataLoaded: false, isLoggedIn: false })
+    const [globals, setGlobals] = useState({ aString: 'init val', count: 0, hideHamMenu: true, orders: [], cards: [], cartItems: [], dataLoaded: false, isLoggedIn: false })
 
     useEffect(() => {
         getAllMeetings()
@@ -45,6 +45,30 @@ export function GlobalContextProvider(props) {
                 const newGlobals = JSON.parse(JSON.stringify(previousGlobals))
                 newGlobals.meetings.push(command.newVal); return newGlobals
             })
+        }
+        if (command.cmd == 'addCard') {
+            const response = await fetch('/api/new-card', {
+                method: 'POST',
+                body: JSON.stringify(command.newVal),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const data = await response.json(); // Should check here that it worked OK
+            setGlobals((previousGlobals) => {
+                const newGlobals = JSON.parse(JSON.stringify(previousGlobals))
+                newGlobals.meetings.push(command.newVal); return newGlobals
+            })
+        }
+        if (command.cmd == 'getCard') {
+            const response = await fetch('/api/getcardInfo', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            let data = await response.json();
+            setGlobals((previousGlobals) => { const newGlobals = JSON.parse(JSON.stringify(previousGlobals)); newGlobals.cards = data; return newGlobals })
         }
         if (command.cmd == 'login') {
             setGlobals((previousGlobals) => {

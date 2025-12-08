@@ -1,13 +1,21 @@
-import { useRef } from 'react';
-
+import { useRef, useEffect, useContext } from 'react';
 import Card from '../ui/Card';
 import classes from './NewBankForm.module.css';
+import GlobalContext from '../../pages/store/globalContext';
+
 
 function PaymentForm(props) {
   const nameInputRef = useRef();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const descriptionInputRef = useRef();
+  const globalCtx = useContext(GlobalContext);
+  let currentCard = [];
+
+  useEffect(() => {
+    globalCtx.updateGlobals({cmd: 'getCardInfo'});
+    currentCard = globalCtx.theGlobalObject.cards[0];
+  }, [])
 
   function submitHandler(event) {
     event.preventDefault();
@@ -63,19 +71,19 @@ function PaymentForm(props) {
                     <i className="fa fa-cc-discover"></i>
                 </div>
                 <label htmlFor="cname">Name on Card</label>
-                <input type="text" id="cname" placeholder="John More Doe"/>
+                <input type="text" id="cname" placeholder={currentCard.nameOnCard}/>
                 <label htmlFor="ccnum">Credit card number</label>
-                <input type="text" id="ccnum" placeholder="1111-2222-3333-4444"/>
+                <input type="text" id="ccnum" placeholder={currentCard.creditCardNumber}/>
                 <label htmlFor="expmonth">Exp Month</label>
-                <input type="text" id="expmonth" placeholder="September"/>
+                <input type="text" id="expmonth" placeholder={currentCard.expMonth}/>
                 <div className={classes.row}>
                     <div className={classes.col_50}>
                         <label htmlFor="expyear">Exp Year</label>
-                        <input type="text" id="expyear" placeholder="2018"/>
+                        <input type="text" id="expyear" placeholder={currentCard.expYear}/>
                     </div>
                     <div className={classes.col_50}>
                         <label htmlFor="cvv">CVV</label>
-                        <input type="text" id="cvv" placeholder="352"/>
+                        <input type="text" id="cvv" placeholder={currentCard.cvc}/>
                     </div>
                 </div>
             </div>
