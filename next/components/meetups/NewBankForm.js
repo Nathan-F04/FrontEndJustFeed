@@ -77,18 +77,7 @@ function NewBankForm(props) {
           <label htmlFor='cvc'>CVC:</label>
           <input type='text' required id='cvc' ref={cvcInputRef} />
         </div>
-        <div>
-          {globalCtx.theGlobalObject.cards.map((card) => {
-              <CardDetails 
-                key={card.id}
-                cardHolderName={card.cardHolderName}
-                cardNumber={card.creditCardNumber}
-                expMonth={card.expMonth}
-                expYear={card.expYear}
-                cvc={card.cvc}
-              />
-          })}
-        </div>
+
         <div className={classes.actions}>
           <button onClick={submitHandler}>Save details</button>
         </div>

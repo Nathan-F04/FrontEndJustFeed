@@ -23,32 +23,27 @@ router.get('/', async function (req, res, next) {
   res.render('index');
 });
 
-router.get('/getcardInfo', async function (req, res, next) {
-  const cardInfo = await getcardInfo();
-  res.json(cardInfo);
-});
-
-async function getcardInfo() {
-  data = await cardInfo.find().lean();
-  return { cardInfo: data };
-}
-
-router.post('/saveCardInfo', async function (req, res, next) {
-  const cardInfo = await saveCardInfo(req.body);
-  res.json(cardInfo);
-});
-
-async function saveCardInfo(theCard) {
-  console.log('theCard: ' + theCard);
-  await cardInfo.create(theCard,
+// Crud
+router.post('/createCard', async function (req, res, next) {
+  let retVal = { response: "fail" }
+  await cardInfo.create(req.body,
     function (err, res) {
-      if (err) {
-        console.log('Could not insert new card')
-        return { saveCardResponse: "fail" };
+      if (!err) {
+        retVal = { response: "success" }
       }
     }
   )
-  return { saveCardInfoResponse: "success" };
-}
+  res.json(retVal);
+});
+
+// cRud   Should use GET . . . we'll fix this is Cloud next term
+router.get('/readCard', async function (req, res, next) {
+  let data;
+  data = await cardInfo.find().lean()
+  // else {
+  //   data = await meetings.find({ _id: req.body._id }).lean()
+  // }
+  res.json({ cardInfo: data });
+})
 
 module.exports = router;

@@ -17,6 +17,7 @@ export function GlobalContextProvider(props) {
     cartItems: [],
     dataLoaded: false,
     isLoggedIn: false,
+    cardDataLoaded: false,
   });
 
   useEffect(() => {
@@ -48,6 +49,7 @@ export function GlobalContextProvider(props) {
     setGlobals((previousGlobals) => {
       const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
       newGlobals.cards = data;
+      newGlobals.cardDataLoaded = true;
       return newGlobals;
     });
   }
@@ -79,7 +81,7 @@ export function GlobalContextProvider(props) {
       const data = await response.json(); // Should check here that it worked OK
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-        newGlobals.cards.push(command.newVal);
+        newGlobals.cards = data;
         return newGlobals;
       });
     }

@@ -1,6 +1,7 @@
-import { useRef, useEffect, useContext } from "react";
+import { useRef, useContext } from "react";
 import classes from "./NewBankForm.module.css";
 import GlobalContext from "../../pages/store/globalContext";
+import Card from '../ui/Card';
 
 function PaymentForm(props) {
   const nameInputRef = useRef();
@@ -8,11 +9,6 @@ function PaymentForm(props) {
   const passwordInputRef = useRef();
   const descriptionInputRef = useRef();
   const globalCtx = useContext(GlobalContext);
-  let currentCard = [];
-
-  useEffect(() => {
-    currentCard = globalCtx.theGlobalObject.cards;
-  }, []);
 
   function submitHandler(event) {
     event.preventDefault();
@@ -32,7 +28,7 @@ function PaymentForm(props) {
     props.onAddMeetup(meetupData);
   }
 
-  return globalCtx.theGlobalObject.dataLoaded ? (
+  return globalCtx.theGlobalObject.cardDataLoaded ? (
     <div>
       <form>
         <div className={classes.orderCard}>
@@ -57,7 +53,6 @@ function PaymentForm(props) {
             </div>
           </div>
         </div>
-
         <div className={classes.orderCard}>
           <h3>Payment</h3>
           <label htmlFor="fname">Accepted Cards</label>
@@ -71,19 +66,19 @@ function PaymentForm(props) {
           <input
             type="text"
             id="cname"
-            placeholder={currentCard[0]?.nameOnCard}
+            placeholder={globalCtx.theGlobalObject.cards?.cardInfo[0]?.nameOnCard ?? "John"}
           />
           <label htmlFor="ccnum">Credit card number</label>
           <input
             type="text"
             id="ccnum"
-            placeholder={currentCard[0]?.creditCardNumber}
+            placeholder={globalCtx.theGlobalObject.cards?.cardInfo[0]?.creditCardNumber ?? "123456789"}
           />
           <label htmlFor="expmonth">Exp Month</label>
           <input
             type="text"
             id="expmonth"
-            placeholder={currentCard[0]?.expMonth}
+            placeholder={globalCtx.theGlobalObject.cards?.cardInfo[0]?.expMonth ?? "12"}
           />
           <div className={classes.row}>
             <div className={classes.col_50}>
@@ -91,7 +86,7 @@ function PaymentForm(props) {
               <input
                 type="text"
                 id="expyear"
-                placeholder={currentCard[0]?.expYear}
+                placeholder={globalCtx.theGlobalObject.cards?.cardInfo[0]?.expYear ?? "2025"}
               />
             </div>
             <div className={classes.col_50}>
@@ -99,7 +94,7 @@ function PaymentForm(props) {
               <input
                 type="text"
                 id="cvv"
-                placeholder={currentCard[0]?.cvc}
+                placeholder={globalCtx.theGlobalObject.cards?.cardInfo[0]?.cvc ?? "111"}
               />
             </div>
           </div>
