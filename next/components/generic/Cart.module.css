@@ -24,9 +24,3 @@
   background-color: #444d44;
   border: 2px solid #777777;
 }
-
-@media screen and (max-width: 768px) {
-  .mainDiv {
-    display: none;
-  }
-}

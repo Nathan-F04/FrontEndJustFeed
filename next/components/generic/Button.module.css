@@ -39,9 +39,3 @@
   margin: 0px;
   pointer-events: none;
 }
-
-@media screen and (max-width: 768px) {
-  .mainDiv {
-    display: none;
-  }
-}
