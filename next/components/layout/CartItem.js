@@ -29,10 +29,15 @@ function CartItem(props) {
         <div className={classes.cartItem}>
             <img src={props.image} className={classes.cartItemImage}></img>
             <p className={classes.cartItemText}>Quantity: {props.cartNum}</p>
-            <QuantityButton text1="+" onClickHandler={CartIncHandler} />
-            <QuantityButton text1="-" onClickHandler={CartDecHandler}/>
+            <div className={classes.buttonDiv}>
+                <QuantityButton text1="+" onClickHandler={CartIncHandler} />
+                <span></span>
+                <QuantityButton text1="-" onClickHandler={CartDecHandler}/>
+            </div>
             <p className={classes.cartItemText}>Price: {cartPrice}</p>
-            <QuantityButton text1="X" onClickHandler={removeItemHandler}/>
+            <div className={classes.buttonDiv}>
+                <QuantityButton text1="X" onClickHandler={removeItemHandler}/>
+            </div>
         </div>
     );
 }
