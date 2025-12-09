@@ -1,8 +1,18 @@
 // our-dimain.com/new-meetup
 import NewBankForm from '../../components/meetups/NewBankForm'
+import { useRouter } from 'next/router';
+import GlobalContext from "../../pages/store/globalContext"
+import { useContext } from 'react'
 
 function BankPage() {
-    return <NewBankForm />
+    const router = useRouter()
+    const globalCtx = useContext(GlobalContext)
+
+    async function addMeetupHandler(enteredMeetupData)  {
+        await globalCtx.updateGlobals({cmd: 'addCard', newVal: enteredMeetupData})
+        router.push('/');
+    }
+    return <NewBankForm onAddCard={addMeetupHandler}/>
 }
 
 export default BankPage

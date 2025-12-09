@@ -5,7 +5,7 @@ import CardDetails from './CardDetails';
 import classes from './NewBankForm.module.css';
 import GlobalContext from '../../pages/store/globalContext';
 
-function NewBankForm() {
+function NewBankForm(props) {
   const nameInputRef = useRef();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
@@ -37,7 +37,7 @@ function NewBankForm() {
       cvc: enteredcvc,
     };
 
-    globalCtx.updateGlobals({cmd: 'addCardInfo', newVal: meetupData});
+    props.onAddCard(meetupData);
   }
 
   return (

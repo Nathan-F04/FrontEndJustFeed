@@ -2,7 +2,7 @@
 
 async function handler(req, res) { // can be called anything you like
   if(req.method === "POST"){
-    const response = await fetch('http://localhost:8000/saveCardInfo', {
+    const response = await fetch('http://localhost:8000/createCard', {
     method: 'POST',
     body: JSON.stringify(req.body),
     headers: {
@@ -13,7 +13,7 @@ async function handler(req, res) { // can be called anything you like
   res.json(data)
   }
   if(req.method === "GET"){
-    const response = await fetch('http://localhost:8000/getCardInfo', {
+    const response = await fetch('http://localhost:8000/readCard', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
