@@ -1,24 +1,20 @@
-import { useRef, useContext } from "react";
+import { useContext } from "react";
 import classes from "./PaymentForm.module.css";
 import GlobalContext from "../../pages/store/globalContext";
 
 function PaymentForm(props) {
-  const nameInputRef = useRef();
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
-  const descriptionInputRef = useRef();
   const globalCtx = useContext(GlobalContext);
 
   function payHandler(event) {
     event.preventDefault();
 
-    // const enteredname = nameInputRef.current.value;
-    // const enteredEmail = emailInputRef.current.value;
-    // const enteredPassword = passwordInputRef.current.value;
-    // const enteredDescription = descriptionInputRef.current.value;
-
-    //Data here, may need other attributes later
+    let total_amount = 0;
+    for( const item in globalCtx.theGlobalObject.cartItems ) {
+      total_amount = total_amount + item.price;
+    }
     const catItemsData = {
+      total_amount: total_amount,
+      created_at: new Date(),
       items: [...globalCtx.theGlobalObject.cartItems]
     };
 
@@ -32,47 +28,52 @@ function PaymentForm(props) {
             <h3>Billing Address</h3>
             <div className={classes.container}>
                 <label htmlFor="fname">Full Name</label>
-                <input type="text" id="fname" placeholder="John M. Doe" />
+                <input type="text" id="fname" required placeholder="John M. Doe" />
                 <label htmlFor="email">Email</label>
-                <input type="text" id="email" placeholder="john@example.com" />
+                <input type="text" id="email" required placeholder="john@example.com" />
                 <label htmlFor="adr">Address</label>
-                <input type="text" id="adr" placeholder="542 W. 15th Street" />
+                <input type="text" id="adr" required placeholder="542 W. 15th Street" />
                 <label htmlFor="city">City</label>
-                <input type="text" id="city" placeholder="New York" />
+                <input type="text" id="city" required placeholder="New York" />
                 <label htmlFor="state">State</label>
-                <input type="text" id="state" placeholder="NY" />
+                <input type="text" id="state" required placeholder="NY" />
                 <label htmlFor="zip">Zip</label>
-                <input type="text" id="zip" placeholder="10001" />
+                <input type="text" id="zip" required placeholder="10001" />
                   <h3>Payment</h3>
                   <label htmlFor="cname">Name on Card</label>
                   <input
                     type="text"
                     id="cname"
-                    placeholder={globalCtx.theGlobalObject.cards?.cardInfo[0]?.nameOnCard ?? "John"}
+                    required
+                    placeholder={globalCtx.theGlobalObject.cards?.cardInfo?.[0]?.nameOnCard ?? "John"}
                   />
                   <label htmlFor="ccnum">Credit card number</label>
                   <input
                     type="text"
                     id="ccnum"
-                    placeholder={globalCtx.theGlobalObject.cards?.cardInfo[0]?.creditCardNumber ?? "123456789"}
+                    required
+                    placeholder={globalCtx.theGlobalObject.cards?.cardInfo?.[0]?.creditCardNumber ?? "123456789"}
                   />
                   <label htmlFor="expmonth">Exp Month</label>
                   <input
                     type="text"
                     id="expmonth"
-                    placeholder={globalCtx.theGlobalObject.cards?.cardInfo[0]?.expMonth ?? "12"}
+                    required
+                    placeholder={globalCtx.theGlobalObject.cards?.cardInfo?.[0]?.expMonth ?? "12"}
                   />
                   <label htmlFor="expyear">Exp Year</label>
                   <input
                     type="text"
                     id="expyear"
-                    placeholder={globalCtx.theGlobalObject.cards?.cardInfo[0]?.expYear ?? "2025"}
+                    required
+                    placeholder={globalCtx.theGlobalObject.cards?.cardInfo?.[0]?.expYear ?? "2025"}
                   />
                   <label htmlFor="cvv">CVV</label>
                   <input
                     type="text"
                     id="cvv"
-                    placeholder={globalCtx.theGlobalObject.cards?.cardInfo[0]?.cvc ?? "111"}
+                    required
+                    placeholder={globalCtx.theGlobalObject.cards?.cardInfo?.[0]?.cvc ?? "111"}
                   />
                   <button onClick={payHandler} className={classes.button}>Pay now</button>
             </div>

@@ -15,13 +15,16 @@ export function GlobalContextProvider(props) {
     orders: [],
     cards: [],
     cartItems: [],
+    pastOrders: [],
     dataLoaded: false,
     isLoggedIn: false,
     cardDataLoaded: false,
+    isPastOrdersLoaded: false
   });
 
   useEffect(() => {
     getAllCards();
+    getAllPastOrders();
     getAllMeetings();
   }, []);
 
@@ -50,6 +53,23 @@ export function GlobalContextProvider(props) {
       const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
       newGlobals.cards = data;
       newGlobals.cardDataLoaded = true;
+      return newGlobals;
+    });
+  }
+
+  async function getAllPastOrders() {
+    const response = await fetch("/api/add-items", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    let data = await response.json();
+    console.log(data);
+    setGlobals((previousGlobals) => {
+      const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+      newGlobals.pastOrders = data;
+      newGlobals.isPastOrdersLoaded = true;
       return newGlobals;
     });
   }
@@ -99,6 +119,7 @@ export function GlobalContextProvider(props) {
         newGlobals.cards = data;
         return newGlobals;
       });
+      getAllPastOrders();
     }
     if (command.cmd == "setQuantiyInCart") {
       const response = await fetch(`/api/${command.id}`, {

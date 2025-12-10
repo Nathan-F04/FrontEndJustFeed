@@ -89,7 +89,6 @@ router.get('/readSingleItem', async function (req, res, next) {
  
 let OrderReadschema = new Schema({
   id: Number,
-  user_id: Number,
   total_amount: Number,
   created_at: String,
   items:  {type: Array, default: []}
