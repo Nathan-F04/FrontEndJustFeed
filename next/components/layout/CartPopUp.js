@@ -7,10 +7,10 @@ export default function CartPopup(props) {
       {props.cartItems.map((cartItems) => (
         <CartItem
           key={cartItems.id}
+          id={cartItems.id}
           image={cartItems.image}
           price={cartItems.price}
-          cartNum={props.cartNum}
-          setCartNum={props.setCartNum}
+          quantity={cartItems.quantity}
         />
       ))}
     </div>

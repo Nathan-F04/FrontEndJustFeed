@@ -1,6 +1,6 @@
 async function handler(req, res) {
     const { orderId } = req.query; 
-    const response = await fetch(`http://localhost:8003/api/${orderId}`, {
+    const response = await fetch(`http://localhost:8003/api/orders_front/${orderId}`, {
         method: 'PATCH',
         body: JSON.stringify(req.body),
         headers: {

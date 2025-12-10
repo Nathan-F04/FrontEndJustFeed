@@ -6,7 +6,8 @@ function BankInfoList(props) {
     <ul className={classes.list}>
       {props.foods.map((food) => (
         <BankInfoItem
-          key={food.Id}
+          key={food.id}
+          id={food.id}
           title={food.item_name}
           price={food.price}
           image={food.image}

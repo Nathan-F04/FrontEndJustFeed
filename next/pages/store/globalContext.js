@@ -100,7 +100,7 @@ export function GlobalContextProvider(props) {
         return newGlobals;
       });
     }
-    if (command.cmd == "incItems") {
+    if (command.cmd == "setQuantiyInCart") {
       const response = await fetch(`/api/${command.id}`, {
         method: "PATCH",
         body: JSON.stringify(command.newVal),
@@ -109,9 +109,13 @@ export function GlobalContextProvider(props) {
         },
       });
       const data = await response.json(); // Should check here that it worked OK
+      console.log(data);
+      console.log(globals.cartItems);
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-        newGlobals.cartItems[command.id] = data;
+        newGlobals.cartItems = newGlobals.cartItems.map(item =>
+          item.id === data.id ? data: item
+        );
         return newGlobals;
       });
     }

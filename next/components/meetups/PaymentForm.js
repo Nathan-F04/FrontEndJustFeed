@@ -9,13 +9,13 @@ function PaymentForm(props) {
   const descriptionInputRef = useRef();
   const globalCtx = useContext(GlobalContext);
 
-  function submitHandler(event) {
+  function payHandler(event) {
     event.preventDefault();
 
-    const enteredname = nameInputRef.current.value;
-    const enteredEmail = emailInputRef.current.value;
-    const enteredPassword = passwordInputRef.current.value;
-    const enteredDescription = descriptionInputRef.current.value;
+    // const enteredname = nameInputRef.current.value;
+    // const enteredEmail = emailInputRef.current.value;
+    // const enteredPassword = passwordInputRef.current.value;
+    // const enteredDescription = descriptionInputRef.current.value;
 
     //Data here, may need other attributes later
     const catItemsData = {

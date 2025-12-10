@@ -13,7 +13,6 @@ import { useState, useContext } from 'react'
 function MainNavigation() {
   let [popupToggle, setPopupToggle] = useState(false);
   let [cartpopupToggle, setCartPopupToggle] = useState(false);
-  let [cartNum, setCartNum] = useState(1);
   const globalCtx = useContext(GlobalContext);
   const router = useRouter();
 
@@ -34,7 +33,7 @@ function MainNavigation() {
       {!globalCtx.theGlobalObject.isLoggedIn && <Login/>}
       {!globalCtx.theGlobalObject.isLoggedIn && <div className={classes.backgroundBlur}></div>}
       {popupToggle && <Sidebar toggleMenuHide={() => toggleMenuHide()}/>}
-      {cartpopupToggle && <CartPopUp cartItems={globalCtx.theGlobalObject.cartItems} cartNum={cartNum} setCartNum={setCartNum} toggleMenuHide={() => cartMenuHide()}/>}
+      {cartpopupToggle && <CartPopUp cartItems={globalCtx.theGlobalObject.cartItems} toggleMenuHide={() => cartMenuHide()}/>}
       <HamMenu toggleMenuHide={() => toggleMenuHide()} />
       <div className={classes.v1}></div>
       <img className={classes.logo} src="Just-feed.png" alt="Logo"/>
