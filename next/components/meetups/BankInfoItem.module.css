@@ -14,6 +14,11 @@
   color: #2c292b;
 }
 
+.content img{
+  width: 25rem;
+  height: 15rem;
+}
+
 .content button {
   font: inherit;
   cursor: pointer;

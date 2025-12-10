@@ -85,7 +85,7 @@ export function GlobalContextProvider(props) {
         return newGlobals;
       });
     }
-        if (command.cmd == "addItems") {
+      if (command.cmd == "addItems") {
       const response = await fetch("/api/add-items", {
         method: "POST",
         body: JSON.stringify(command.newVal),
@@ -97,6 +97,21 @@ export function GlobalContextProvider(props) {
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
         newGlobals.cards = data;
+        return newGlobals;
+      });
+    }
+    if (command.cmd == "incItems") {
+      const response = await fetch(`/api/${command.id}`, {
+        method: "PATCH",
+        body: JSON.stringify(command.newVal),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json(); // Should check here that it worked OK
+      setGlobals((previousGlobals) => {
+        const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+        newGlobals.cartItems[command.id] = data;
         return newGlobals;
       });
     }
