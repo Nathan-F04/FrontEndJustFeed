@@ -9,13 +9,16 @@ export function GlobalContextProvider(props) {
     orders: [],
     cards: [],
     cartItems: [],
+    pastOrders: [],
     dataLoaded: false,
     isLoggedIn: false,
     cardDataLoaded: false,
+    isPastOrdersLoaded: false
   });
 
   useEffect(() => {
     getAllCards();
+    getAllPastOrders();
     getAllMeetings();
   }, []);
 
@@ -44,6 +47,23 @@ export function GlobalContextProvider(props) {
       const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
       newGlobals.cards = data;
       newGlobals.cardDataLoaded = true;
+      return newGlobals;
+    });
+  }
+
+  async function getAllPastOrders() {
+    const response = await fetch("/api/add-items", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    let data = await response.json();
+    console.log(data);
+    setGlobals((previousGlobals) => {
+      const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+      newGlobals.pastOrders = data;
+      newGlobals.isPastOrdersLoaded = true;
       return newGlobals;
     });
   }
@@ -84,17 +104,39 @@ export function GlobalContextProvider(props) {
         return newGlobals;
       });
     }
+    if (command.cmd == "addItems") {
+      const response = await fetch("/api/add-items", {
+          method: "POST",
+          body: JSON.stringify(command.newVal),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      }
+      const data = await response.json(); // Should check here that it worked OK
+      setGlobals((previousGlobals) => {
+        const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+        newGlobals.cards = data;
+        return newGlobals;
+      });
+      getAllPastOrders();
+    }
+    
     if (command.cmd == "createAccount") {
         const response = await fetch("/api/createAccount", {
-        method: "POST",
-        body: JSON.stringify(command.newVal),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json();
-      console.log(data);
+          method: "POST",
+          body: JSON.stringify(command.newVal),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
+        console.log(data);
     }
+    if (command.cmd == "setQuantiyInCart") {
+      const response = await fetch(`/api/${command.id}`, {
+        method: "PATCH",
+
     if (command.cmd == "addCard") {
       const response = await fetch("/api/new-card", {
         method: "POST",
@@ -104,9 +146,13 @@ export function GlobalContextProvider(props) {
         },
       });
       const data = await response.json(); // Should check here that it worked OK
+      console.log(data);
+      console.log(globals.cartItems);
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-        newGlobals.cards = data;
+        newGlobals.cartItems = newGlobals.cartItems.map(item =>
+          item.id === data.id ? data: item
+        );
         return newGlobals;
       });
     }

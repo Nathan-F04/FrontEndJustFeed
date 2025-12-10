@@ -14,6 +14,11 @@
   color: #2c292b;
 }
 
+.content img{
+  width: 25rem;
+  height: 15rem;
+}
+
 .content button {
   font: inherit;
   cursor: pointer;
@@ -29,4 +34,10 @@
 .content button:hover,
 .content button:active {
   background-color: #cc0d56;
+}
+
+@media only screen and (max-width: 600px) {
+  .content img {
+    width: 10rem;
+  }
 }
