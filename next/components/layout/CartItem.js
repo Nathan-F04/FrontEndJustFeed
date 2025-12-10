@@ -26,7 +26,7 @@ function CartItem(props) {
     return (
         <div className={classes.cartItem}>
             <img src={props.image} className={classes.cartItemImage}></img>
-            <p className={classes.cartItemText}>Quantity: {props.cartNum}</p>
+            <p className={classes.cartItemText}>Quantity: {props.quantity}</p>
             <div className={classes.buttonDiv}>
                 <QuantityButton text1="+" onClickHandler={incChangeItemHandler}/>
                 <span></span>

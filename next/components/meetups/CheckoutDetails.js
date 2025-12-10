@@ -12,20 +12,20 @@ function CheckoutDetails(props) {
 
     function getTotal() {
         let total_amount = 0;
-        props.items.map((item) => (total_amount = total_amount + item.price))
-        setPrice(total_amount);
+        const total = props.items.reduce((sum, item) => sum + Number(item.price),0);
+        setPrice(total);
     }
 
     useEffect(() => {
         getTotal();
-    }, [])
+    }, [props.items])
 
   return (
     <li className={classes.item}>
       <div className={classes.orderCard}>
         <div className={classes.content}>
             {props.items.map((item) => (
-                <Items //This is what is called and needs to be formatted for alex's db
+                <Items 
                     key={item.id}               
                     title={item.title}
                     price={item.price}

@@ -25,6 +25,8 @@ let loginInfoSchema = new Schema({
 let cardInfo = oldMong.model('cardInfo', cardInfoschema);
 let loginInfo = oldMong.model('loginInfo', loginInfoSchema);
 
+
+
 router.get('/', async function (req, res, next) {
   const cardInfo = await getcardInfo();
   res.render('index');
@@ -34,6 +36,18 @@ router.get('/', async function (req, res, next) {
 router.post('/createCard', async function (req, res, next) {
   let retVal = { response: "fail" }
   await cardInfo.create(req.body,
+    function (err, res) {
+      if (!err) {
+        retVal = { response: "success" }
+      }
+    }
+  )
+  res.json(retVal);
+});
+
+router.post('/addCartItem', async function (req, res, next) {
+  let retVal = { response: "fail" }
+  await OrderRead.create(req.body,
     function (err, res) {
       if (!err) {
         retVal = { response: "success" }
@@ -52,8 +66,6 @@ router.get('/readCard', async function (req, res, next) {
   // }
   res.json({ cardInfo: data });
 })
- 
-module.exports = router;
  
 let OrderItemReadschema = new Schema({
   id: Number,
@@ -132,7 +144,7 @@ router.post('/addItems', async function (req, res, next) {
   )
   res.json(retVal);
 });
- 
+
 // cRud   Should use GET . . . we'll fix this is Cloud next term
 router.get('/readItems', async function (req, res, next) {
   let data;
@@ -152,6 +164,14 @@ router.post('/login', async function (req, res, next) {
   if (user.password === req.body.password) {
     retVal = { response: "success" };
   }
+  res.json(retVal);
+});
+
+// cruD   Should use DELETE . . . we'll fix this is Cloud next term
+router.delete('/deleteCartItem', async function (req, res, next) {
+  let retVal = { response: "fail" }
+  await OrderRead.deleteOne({ items: [{id: req.body.id}] }
+  )
   res.json(retVal);
 });
 

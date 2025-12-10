@@ -112,7 +112,6 @@ export function GlobalContextProvider(props) {
             "Content-Type": "application/json",
           },
         });
-      }
       const data = await response.json(); // Should check here that it worked OK
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
@@ -136,9 +135,26 @@ export function GlobalContextProvider(props) {
     if (command.cmd == "setQuantiyInCart") {
       const response = await fetch(`/api/${command.id}`, {
         method: "PATCH",
+        body: JSON.stringify(command.newVal),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      console.log(globals.cartItems);
+      setGlobals((previousGlobals) => {
+        const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+        newGlobals.cartItems[command.id] = data;
+        newGlobals.cartItems = newGlobals.cartItems.map(item =>
+          item.id === data.id ? data: item
+        );
+        return newGlobals;
+      });
+    }
 
     if (command.cmd == "addCard") {
-      const response = await fetch("/api/new-card", {
+        const response = await fetch("/api/new-card", {
         method: "POST",
         body: JSON.stringify(command.newVal),
         headers: {
@@ -146,13 +162,9 @@ export function GlobalContextProvider(props) {
         },
       });
       const data = await response.json(); // Should check here that it worked OK
-      console.log(data);
-      console.log(globals.cartItems);
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-        newGlobals.cartItems = newGlobals.cartItems.map(item =>
-          item.id === data.id ? data: item
-        );
+        newGlobals.cards = data;
         return newGlobals;
       });
     }
@@ -164,11 +176,34 @@ export function GlobalContextProvider(props) {
       });
     }
     if (command.cmd == "removeCartItem") {
+        const response = await fetch("/api/changeCartItem", {
+        method: "DELETE",
+        body: JSON.stringify(command.newVal),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
         newGlobals.cartItems.pop(command.newVal);
         return newGlobals;
       });
+    }
+    if (command.cmd == "createCartItem") {
+        const response = await fetch("/api/changeCartItem", {
+          method: "POST",
+          body: JSON.stringify(command.newVal),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+          const data = await response.json();
+        setGlobals((previousGlobals) => {
+          const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+          newGlobals.cartItems.push(command.newVal);
+          return newGlobals;
+        });
     }
   }
 
