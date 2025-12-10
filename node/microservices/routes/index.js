@@ -16,7 +16,14 @@ let cardInfoschema = new Schema({
   cvc: String
 }, { collection: 'cardInfo' });
 
+let loginInfoSchema = new Schema({
+  accountId: String,
+  email: String,
+  password: String
+}, { collection: 'login details' });
+
 let cardInfo = oldMong.model('cardInfo', cardInfoschema);
+let loginInfo = oldMong.model('loginInfo', loginInfoSchema);
 
 router.get('/', async function (req, res, next) {
   const cardInfo = await getcardInfo();
@@ -45,5 +52,29 @@ router.get('/readCard', async function (req, res, next) {
   // }
   res.json({ cardInfo: data });
 })
+
+router.post('/createAccount', async function (req, res, next) {
+  let retVal = { response: "fail" }
+  await loginInfo.create(req.body,
+    function (err, res) {
+      if (!err) {
+        retVal = { response: "success" }
+      }
+    }
+  )
+  res.json(retVal);
+});
+
+router.post('/createAccount', async function (req, res, next) {
+  let retVal = { response: "fail" }
+  await loginInfo.create(req.body,
+    function (err, res) {
+      if (!err) {
+        retVal = { response: "success" }
+      }
+    }
+  )
+  res.json(retVal);
+});
 
 module.exports = router;
