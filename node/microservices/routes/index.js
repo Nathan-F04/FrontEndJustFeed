@@ -65,15 +65,15 @@ router.post('/createAccount', async function (req, res, next) {
   res.json(retVal);
 });
 
-router.post('/createAccount', async function (req, res, next) {
-  let retVal = { response: "fail" }
-  await loginInfo.create(req.body,
-    function (err, res) {
-      if (!err) {
-        retVal = { response: "success" }
-      }
-    }
-  )
+router.post('/login', async function (req, res, next) {
+  let retVal = { response: "fail", message: "Email or Password is incorrect"}
+  const user = await loginInfo.findOne({ email: req.body.email });
+  if (!user) {
+    return res.json(retVal);
+  }
+  if (user.password === req.body.password) {
+    retVal = { response: "success" };
+  }
   res.json(retVal);
 });
 

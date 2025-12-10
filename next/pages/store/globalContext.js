@@ -64,6 +64,37 @@ export function GlobalContextProvider(props) {
         return newGlobals;
       });
     }
+    if (command.cmd == "login") {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        body: JSON.stringify(command.newVal),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      let status = false
+      console.log(data);
+      if (data.response === "success") {
+        status = true
+      }
+      setGlobals((previousGlobals) => {
+        const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+        newGlobals.isLoggedIn = status;
+        return newGlobals;
+      });
+    }
+    if (command.cmd == "createAccount") {
+        const response = await fetch("/api/createAccount", {
+        method: "POST",
+        body: JSON.stringify(command.newVal),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+    }
     if (command.cmd == "addCard") {
       const response = await fetch("/api/new-card", {
         method: "POST",
@@ -76,13 +107,6 @@ export function GlobalContextProvider(props) {
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
         newGlobals.cards = data;
-        return newGlobals;
-      });
-    }
-    if (command.cmd == "login") {
-      setGlobals((previousGlobals) => {
-        const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-        newGlobals.isLoggedIn = command.newVal;
         return newGlobals;
       });
     }

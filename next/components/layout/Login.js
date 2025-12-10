@@ -1,42 +1,34 @@
 import Card from '../ui/Card';
 import { useRef, useState, useContext } from 'react';
-import Link from 'next/link'
 import classes from './Login.module.css'
 import GlobalContext from "../../pages/store/globalContext"
 
 function Login() {
     const globalCtx = useContext(GlobalContext);
-    const nameInputRef = useRef();
     const emailInputRef = useRef();
     const passwordInputRef = useRef();
     const [toggleModal, setToggleModal] = useState(false);
 
-    function submitHandler(event) {
+    async function submitHandler(event) {
         event.preventDefault();
 
-        const enteredName = nameInputRef.current.value;
         const enteredEmail = emailInputRef.current.value;
         const enteredPassword = passwordInputRef.current.value;
 
+        const loginDetails = {
+            email: enteredEmail,
+            password: enteredPassword,
+        };
+
         if (toggleModal) {
-            const loginDetails = {
-                email: enteredEmail,
-                password: enteredPassword,
-            };
-            console.log(loginDetails)
+            await globalCtx.updateGlobals({cmd: 'createAccount', newVal: loginDetails});
         } else {
-            const loginDetails = {
-                name: enteredName,
-                email: enteredEmail,
-                password: enteredPassword,
-            };
-            console.log(loginDetails)
+            await globalCtx.updateGlobals({cmd: 'login', newVal: loginDetails});
         }
-        // props.onLogin(loginDetails);
     }
 
-    function clicked() {
-        globalCtx.updateGlobals({ cmd: 'login', newVal: true });
+    function preventDefaultEvent(event) {
+        event.preventDefault();
     }
 
     function toggleModalHandler() {
@@ -46,11 +38,7 @@ function Login() {
     return (
         <div className={classes.mainDiv}>
             <Card>
-                <form className={classes.form} onSubmit={submitHandler}>
-                    {toggleModal && <div className={classes.control}>
-                        <label htmlFor='name'>Name</label>
-                        <input type='text' required id='name' ref={nameInputRef} />
-                    </div>}
+                <form className={classes.form} onSubmit={preventDefaultEvent}>
                     <div className={classes.control}>
                         <label htmlFor='email'>Email</label>
                         <input type='email' required id='email' ref={emailInputRef} />
@@ -62,7 +50,7 @@ function Login() {
                     <div>
                         {toggleModal ? <button className={classes.buttonLink} onClick={toggleModalHandler}>Already Have an Account?</button> : <button onClick={toggleModalHandler}>Create an Account</button> }
                         <div className={classes.actions}>
-                            {toggleModal ? <button onClick={toggleModalHandler}>Create an Account</button> : <button onClick={clicked}>Login</button>}
+                            {toggleModal ? <button onClick={submitHandler}>Create an Account</button> : <button onClick={submitHandler}>Login</button>}
                         </div>
                     </div>
                 </form>
