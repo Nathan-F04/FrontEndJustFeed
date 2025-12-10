@@ -25,7 +25,7 @@ function CheckoutDetails(props) {
       <div className={classes.orderCard}>
         <div className={classes.content}>
             {props.items.map((item) => (
-                <Items //This is what is called and needs to be formatted for alex's db
+                <Items
                     key={item.id}               
                     title={item.title}
                     price={item.price}

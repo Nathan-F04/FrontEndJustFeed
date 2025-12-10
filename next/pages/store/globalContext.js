@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
-
+ 
 const GlobalContext = createContext();
-
+ 
 export function GlobalContextProvider(props) {
   const [globals, setGlobals] = useState({
     aString: "init val",
@@ -15,13 +15,13 @@ export function GlobalContextProvider(props) {
     cardDataLoaded: false,
     isPastOrdersLoaded: false
   });
-
+ 
   useEffect(() => {
     getAllCards();
     getAllPastOrders();
     getAllMeetings();
   }, []);
-
+ 
   async function getAllMeetings() {
     const response = await fetch("/api/orders");
     let data = await response.json();
@@ -33,7 +33,7 @@ export function GlobalContextProvider(props) {
       return newGlobals;
     });
   }
-
+ 
   async function getAllCards() {
     const response = await fetch("/api/new-card", {
       method: "GET",
@@ -50,7 +50,7 @@ export function GlobalContextProvider(props) {
       return newGlobals;
     });
   }
-
+ 
   async function getAllPastOrders() {
     const response = await fetch("/api/add-items", {
       method: "GET",
@@ -67,7 +67,7 @@ export function GlobalContextProvider(props) {
       return newGlobals;
     });
   }
-
+ 
   async function editGlobalData(command) {
     if (command.cmd == "addMeeting") {
       const response = await fetch("/api/new-meetup", {
@@ -112,7 +112,6 @@ export function GlobalContextProvider(props) {
             "Content-Type": "application/json",
           },
         });
-      }
       const data = await response.json(); // Should check here that it worked OK
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
@@ -121,7 +120,7 @@ export function GlobalContextProvider(props) {
       });
       getAllPastOrders();
     }
-    
+   
     if (command.cmd == "createAccount") {
         const response = await fetch("/api/createAccount", {
           method: "POST",
@@ -136,9 +135,26 @@ export function GlobalContextProvider(props) {
     if (command.cmd == "setQuantiyInCart") {
       const response = await fetch(`/api/${command.id}`, {
         method: "PATCH",
-
+        body: JSON.stringify(command.newVal),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      console.log(globals.cartItems);
+      setGlobals((previousGlobals) => {
+        const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+        newGlobals.cartItems[command.id] = data;
+        newGlobals.cartItems = newGlobals.cartItems.map(item =>
+          item.id === data.id ? data: item
+        );
+        return newGlobals;
+      });
+    }
+ 
     if (command.cmd == "addCard") {
-      const response = await fetch("/api/new-card", {
+        const response = await fetch("/api/new-card", {
         method: "POST",
         body: JSON.stringify(command.newVal),
         headers: {
@@ -146,13 +162,9 @@ export function GlobalContextProvider(props) {
         },
       });
       const data = await response.json(); // Should check here that it worked OK
-      console.log(data);
-      console.log(globals.cartItems);
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-        newGlobals.cartItems = newGlobals.cartItems.map(item =>
-          item.id === data.id ? data: item
-        );
+        newGlobals.cards = data;
         return newGlobals;
       });
     }
@@ -164,6 +176,7 @@ export function GlobalContextProvider(props) {
       });
     }
     if (command.cmd == "removeCartItem") {
+      const data = await response.json();
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
         newGlobals.cartItems.pop(command.newVal);
@@ -171,17 +184,17 @@ export function GlobalContextProvider(props) {
       });
     }
   }
-
+ 
   const context = {
     updateGlobals: editGlobalData,
     theGlobalObject: globals,
   };
-
+ 
   return (
     <GlobalContext.Provider value={context}>
       {props.children}
     </GlobalContext.Provider>
   );
 }
-
+ 
 export default GlobalContext;

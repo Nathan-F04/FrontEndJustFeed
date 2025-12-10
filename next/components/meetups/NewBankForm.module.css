@@ -1,4 +1,8 @@
-.form {
+.center {
+  margin-left: 35%;
+}
+
+.center form {
   padding: 1rem;
 }
 
@@ -12,8 +16,7 @@
   margin-bottom: 0.5rem;
 }
 
-.control input,
-.control textarea {
+.control input {
   display: block;
   font: inherit;
   border-radius: 4px;
