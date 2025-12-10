@@ -6,7 +6,7 @@ import Sidebar from "./Sidebar"
 import CartPopUp from "./CartPopUp"
 import GlobalContext from '../../pages/store/globalContext'
 import { useRouter } from 'next/router'
-import Login from './login'
+import Login from './Login'
 import { GiShoppingCart } from 'react-icons/gi'
 import { useState, useContext } from 'react'
 

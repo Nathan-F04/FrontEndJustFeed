@@ -15,9 +15,16 @@ let cardInfoschema = new Schema({
   expYear: String,
   cvc: String
 }, { collection: 'cardInfo' });
- 
+
+let loginInfoSchema = new Schema({
+  accountId: String,
+  email: String,
+  password: String
+}, { collection: 'login details' });
+
 let cardInfo = oldMong.model('cardInfo', cardInfoschema);
- 
+let loginInfo = oldMong.model('loginInfo', loginInfoSchema);
+
 router.get('/', async function (req, res, next) {
   const cardInfo = await getcardInfo();
   res.render('index');
@@ -76,6 +83,18 @@ router.post('/addSingleItem', async function (req, res, next) {
   )
   res.json(retVal);
 });
+
+router.post('/createAccount', async function (req, res, next) {
+  let retVal = { response: "fail" }
+  await loginInfo.create(req.body,
+    function (err, res) {
+      if (!err) {
+        retVal = { response: "success" }
+      }
+    }
+  )
+  res.json(retVal);
+});
  
 // cRud   Should use GET . . . we'll fix this is Cloud next term
 router.get('/readSingleItem', async function (req, res, next) {
@@ -123,5 +142,17 @@ router.get('/readItems', async function (req, res, next) {
   // }
   res.json({ OrderRead: data });
 })
- 
+
+router.post('/login', async function (req, res, next) {
+  let retVal = { response: "fail", message: "Email or Password is incorrect"}
+  const user = await loginInfo.findOne({ email: req.body.email });
+  if (!user) {
+    return res.json(retVal);
+  }
+  if (user.password === req.body.password) {
+    retVal = { response: "success" };
+  }
+  res.json(retVal);
+});
+
 module.exports = router;

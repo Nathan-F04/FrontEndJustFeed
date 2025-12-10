@@ -1,9 +1,3 @@
-// Lets do all database stuff here and just share this global context with the rest of the App
-// - so no database code anywhere else in our App
-// - every CRUD function the App needs to do is in here, in one place
-// - makes debugging etc so much easier
-// - all external connections still have to go through /api routes
-
 import { createContext, useState, useEffect } from "react";
 
 const GlobalContext = createContext();
@@ -90,29 +84,35 @@ export function GlobalContextProvider(props) {
         return newGlobals;
       });
     }
-    if (command.cmd == "addCard") {
-      const response = await fetch("/api/new-card", {
+    if (command.cmd == "login") {
+      const response = await fetch("/api/login", {
         method: "POST",
         body: JSON.stringify(command.newVal),
         headers: {
           "Content-Type": "application/json",
         },
       });
-      const data = await response.json(); // Should check here that it worked OK
+      const data = await response.json();
+      let status = false
+      console.log(data);
+      if (data.response === "success") {
+        status = true
+      }
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-        newGlobals.cards = data;
+        newGlobals.isLoggedIn = status;
         return newGlobals;
       });
     }
-      if (command.cmd == "addItems") {
+    if (command.cmd == "addItems") {
       const response = await fetch("/api/add-items", {
-        method: "POST",
-        body: JSON.stringify(command.newVal),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+          method: "POST",
+          body: JSON.stringify(command.newVal),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      }
       const data = await response.json(); // Should check here that it worked OK
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
@@ -121,9 +121,25 @@ export function GlobalContextProvider(props) {
       });
       getAllPastOrders();
     }
+    
+    if (command.cmd == "createAccount") {
+        const response = await fetch("/api/createAccount", {
+          method: "POST",
+          body: JSON.stringify(command.newVal),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
+        console.log(data);
+    }
     if (command.cmd == "setQuantiyInCart") {
       const response = await fetch(`/api/${command.id}`, {
         method: "PATCH",
+
+    if (command.cmd == "addCard") {
+      const response = await fetch("/api/new-card", {
+        method: "POST",
         body: JSON.stringify(command.newVal),
         headers: {
           "Content-Type": "application/json",
@@ -137,13 +153,6 @@ export function GlobalContextProvider(props) {
         newGlobals.cartItems = newGlobals.cartItems.map(item =>
           item.id === data.id ? data: item
         );
-        return newGlobals;
-      });
-    }
-    if (command.cmd == "login") {
-      setGlobals((previousGlobals) => {
-        const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-        newGlobals.isLoggedIn = command.newVal;
         return newGlobals;
       });
     }

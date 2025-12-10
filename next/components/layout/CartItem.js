@@ -26,11 +26,16 @@ function CartItem(props) {
     return (
         <div className={classes.cartItem}>
             <img src={props.image} className={classes.cartItemImage}></img>
-            <p className={classes.cartItemText}>Quantity: {props.quantity}</p>
-            <QuantityButton text1="+" onClickHandler={incChangeItemHandler} />
-            <QuantityButton text1="-" onClickHandler={decChangeItemHandler}/>
+            <p className={classes.cartItemText}>Quantity: {props.cartNum}</p>
+            <div className={classes.buttonDiv}>
+                <QuantityButton text1="+" onClickHandler={incChangeItemHandler}/>
+                <span></span>
+                <QuantityButton text1="-" onClickHandler={decChangeItemHandler}/>
+            </div>
             <p className={classes.cartItemText}>Price: {cartPrice.toFixed(2)}</p>
-            <QuantityButton text1="X" onClickHandler={removeItemHandler}/>
+            <div className={classes.buttonDiv}>
+                <QuantityButton text1="X" onClickHandler={removeItemHandler}/>
+            </div>
         </div>
     );
 }
