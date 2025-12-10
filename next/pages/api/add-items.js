@@ -1,8 +1,8 @@
-// /api/new-meetup
+// /api/add-items
 
 async function handler(req, res) { // can be called anything you like
   if(req.method === "POST"){
-    const response = await fetch('http://localhost:8000/createCard', {
+    const response = await fetch('http://localhost:8000/addItems', {
     method: 'POST',
     body: JSON.stringify(req.body),
     headers: {
@@ -13,7 +13,7 @@ async function handler(req, res) { // can be called anything you like
   res.json(data)
   }
   if(req.method === "GET"){
-    const response = await fetch('http://localhost:8000/readCard', {
+    const response = await fetch('http://localhost:8000/readItems', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'

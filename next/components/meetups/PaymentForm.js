@@ -18,11 +18,11 @@ function PaymentForm(props) {
     const enteredDescription = descriptionInputRef.current.value;
 
     //Data here, may need other attributes later
-    const meetupData = {
+    const catItemsData = {
       items: [...globalCtx.theGlobalObject.cartItems]
     };
 
-    props.onAddMeetup(meetupData);
+    props.onAddItems(catItemsData);
   }
 
   return globalCtx.theGlobalObject.cardDataLoaded ? (
