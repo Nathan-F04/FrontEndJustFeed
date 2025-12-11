@@ -45,17 +45,17 @@ router.post('/createCard', async function (req, res, next) {
   res.json(retVal);
 });
 
-router.post('/addCartItem', async function (req, res, next) {
-  let retVal = { response: "fail" }
-  await OrderRead.create(req.body,
-    function (err, res) {
-      if (!err) {
-        retVal = { response: "success" }
-      }
-    }
-  )
-  res.json(retVal);
-});
+// router.post('/addCartItem', async function (req, res, next) {
+//   let retVal = { response: "fail" }
+//   await OrderRead.create(req.body,
+//     function (err, res) {
+//       if (!err) {
+//         retVal = { response: "success" }
+//       }
+//     }
+//   )
+//   res.json(retVal);
+// });
  
 // cRud   Should use GET . . . we'll fix this is Cloud next term
 router.get('/readCard', async function (req, res, next) {
@@ -167,12 +167,12 @@ router.post('/login', async function (req, res, next) {
   res.json(retVal);
 });
 
-// cruD   Should use DELETE . . . we'll fix this is Cloud next term
-router.delete('/deleteCartItem', async function (req, res, next) {
-  let retVal = { response: "fail" }
-  await OrderRead.deleteOne({ items: [{id: req.body.id}] }
-  )
-  res.json(retVal);
-});
+// // cruD   Should use DELETE . . . we'll fix this is Cloud next term
+// router.delete('/deleteCartItem', async function (req, res, next) {
+//   let retVal = { response: "fail" }
+//   await OrderRead.deleteOne({ items: [{id: req.body.id}] }
+//   )
+//   res.json(retVal);
+// });
 
 module.exports = router;

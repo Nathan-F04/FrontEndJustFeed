@@ -176,13 +176,6 @@ export function GlobalContextProvider(props) {
       });
     }
     if (command.cmd == "removeCartItem") {
-        const response = await fetch("/api/changeCartItem", {
-        method: "DELETE",
-        body: JSON.stringify(command.newVal),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
       const data = await response.json();
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
@@ -190,27 +183,23 @@ export function GlobalContextProvider(props) {
         return newGlobals;
       });
     }
-    if (command.cmd == "createCartItem") {
-        const response = await fetch("/api/changeCartItem", {
-          method: "POST",
-          body: JSON.stringify(command.newVal),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-          const data = await response.json();
-        setGlobals((previousGlobals) => {
-          const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-          newGlobals.cartItems.push(command.newVal);
-          return newGlobals;
-        });
-    }
-  }
 
-  const context = {
-    updateGlobals: editGlobalData,
-    theGlobalObject: globals,
-  };
+    // if (command.cmd == "createCartItem") {
+    //     const response = await fetch("/api/changeCartItem", {
+    //       method: "POST",
+    //       body: JSON.stringify(command.newVal),
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     });
+    //       const data = await response.json();
+    //     setGlobals((previousGlobals) => {
+    //       const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+    //       newGlobals.cartItems.push(command.newVal);
+    //       return newGlobals;
+    //     });
+    // }
+  }
 
   return (
     <GlobalContext.Provider value={context}>
