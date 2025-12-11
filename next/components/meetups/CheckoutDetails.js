@@ -11,9 +11,9 @@ function CheckoutDetails(props) {
     }
 
     function getTotal() {
-        let total_amount = 0;
         const total = props.items.reduce((sum, item) => sum + Number(item.price),0);
         setPrice(total);
+        sessionStorage.setItem('total_amount', total);
     }
 
     useEffect(() => {
@@ -28,7 +28,7 @@ function CheckoutDetails(props) {
                 <Items 
                     key={item.id}               
                     title={item.title}
-                    price={item.price}
+                    price={item.price * item.quantity}
                     image={item.image}
                     description={item.description}
                 />

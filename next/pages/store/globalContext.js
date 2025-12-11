@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
-
+ 
 const GlobalContext = createContext();
-
+ 
 export function GlobalContextProvider(props) {
   const [globals, setGlobals] = useState({
     aString: "init val",
@@ -15,13 +15,13 @@ export function GlobalContextProvider(props) {
     cardDataLoaded: false,
     isPastOrdersLoaded: false
   });
-
+ 
   useEffect(() => {
     getAllCards();
     getAllPastOrders();
     getAllMeetings();
   }, []);
-
+ 
   async function getAllMeetings() {
     const response = await fetch("/api/orders");
     let data = await response.json();
@@ -33,7 +33,7 @@ export function GlobalContextProvider(props) {
       return newGlobals;
     });
   }
-
+ 
   async function getAllCards() {
     const response = await fetch("/api/new-card", {
       method: "GET",
@@ -50,7 +50,7 @@ export function GlobalContextProvider(props) {
       return newGlobals;
     });
   }
-
+ 
   async function getAllPastOrders() {
     const response = await fetch("/api/add-items", {
       method: "GET",
@@ -67,7 +67,7 @@ export function GlobalContextProvider(props) {
       return newGlobals;
     });
   }
-
+ 
   async function editGlobalData(command) {
     if (command.cmd == "addMeeting") {
       const response = await fetch("/api/new-meetup", {
@@ -113,14 +113,9 @@ export function GlobalContextProvider(props) {
           },
         });
       const data = await response.json(); // Should check here that it worked OK
-      setGlobals((previousGlobals) => {
-        const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-        newGlobals.cards = data;
-        return newGlobals;
-      });
       getAllPastOrders();
     }
-    
+   
     if (command.cmd == "createAccount") {
         const response = await fetch("/api/createAccount", {
           method: "POST",
@@ -152,7 +147,6 @@ export function GlobalContextProvider(props) {
         return newGlobals;
       });
     }
-
     if (command.cmd == "addCard") {
         const response = await fetch("/api/new-card", {
         method: "POST",
@@ -176,36 +170,33 @@ export function GlobalContextProvider(props) {
       });
     }
     if (command.cmd == "removeCartItem") {
-      const data = await response.json();
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-        newGlobals.cartItems.pop(command.newVal);
+        newGlobals.cartItems = newGlobals.cartItems.filter(item =>
+          item.id !== command.newVal.id
+        );
         return newGlobals;
       });
     }
-
-    // if (command.cmd == "createCartItem") {
-    //     const response = await fetch("/api/changeCartItem", {
-    //       method: "POST",
-    //       body: JSON.stringify(command.newVal),
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //     });
-    //       const data = await response.json();
-    //     setGlobals((previousGlobals) => {
-    //       const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-    //       newGlobals.cartItems.push(command.newVal);
-    //       return newGlobals;
-    //     });
-    // }
+    if (command.cmd == "clearCart") {
+      setGlobals((previousGlobals) => {
+        const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+        newGlobals.cartItems.splice(0, newGlobals.cartItems.length);
+        return newGlobals;
+      });
+    }
   }
-
+ 
+  const context = {
+    updateGlobals: editGlobalData,
+    theGlobalObject: globals,
+  };
+ 
   return (
     <GlobalContext.Provider value={context}>
       {props.children}
     </GlobalContext.Provider>
   );
 }
-
+ 
 export default GlobalContext;

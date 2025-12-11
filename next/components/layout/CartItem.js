@@ -13,13 +13,13 @@ function CartItem(props) {
 
     async function decChangeItemHandler() {
         if (props.quantity > 1) {
-            globalCtx.updateGlobals({cmd: 'setQuantiyInCart', newVal: {quantity: props.quantity - 1}, id: props.id});
+            await globalCtx.updateGlobals({cmd: 'setQuantiyInCart', newVal: {quantity: props.quantity - 1}, id: props.id});
             setCartPrice(props.price * (props.quantity - 1));
         }
     }
 
     async function incChangeItemHandler() {
-        globalCtx.updateGlobals({cmd: 'setQuantiyInCart', newVal: {quantity: props.quantity + 1}, id: props.id});
+        await globalCtx.updateGlobals({cmd: 'setQuantiyInCart', newVal: {quantity: props.quantity + 1}, id: props.id});
         setCartPrice(props.price * (props.quantity + 1));
     }
 

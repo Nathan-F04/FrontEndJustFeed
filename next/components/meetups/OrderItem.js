@@ -10,7 +10,7 @@ function OrderItem(props) {
             {props.items.map((item) => (
                 <Items
                     key={item.id}               
-                    title={item.item_name}
+                    title={item.title}
                     price={item.price}
                     image={item.image}
                     description={item.description}
