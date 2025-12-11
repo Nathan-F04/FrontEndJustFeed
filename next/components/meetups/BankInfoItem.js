@@ -1,11 +1,9 @@
 import Card from '../ui/Card';
 import classes from './BankInfoItem.module.css';
-import { useRouter } from 'next/router';
 import GlobalContext from '../../pages/store/globalContext';
 import { useContext } from 'react';
 
 function BankInfoItem(props) {
-  const router = useRouter();
   const globalCtx = useContext(GlobalContext)
 
   async function showDetailsHandler() {
