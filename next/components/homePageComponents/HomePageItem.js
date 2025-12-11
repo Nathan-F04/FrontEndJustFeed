@@ -1,9 +1,9 @@
 import Card from "../ui/Card";
-import classes from "./BankInfoItem.module.css";
+import classes from "./HomePageItem.module.css";
 import GlobalContext from "../../pages/store/globalContext";
 import { useContext } from "react";
 
-function BankInfoItem(props) {
+function HomePageItem(props) {
   const globalCtx = useContext(GlobalContext);
 
   async function showDetailsHandler() {
@@ -25,4 +25,4 @@ function BankInfoItem(props) {
   );
 }
 
-export default BankInfoItem;
+export default HomePageItem;

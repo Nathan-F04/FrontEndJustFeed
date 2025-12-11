@@ -69,21 +69,6 @@ export function GlobalContextProvider(props) {
   }
 
   async function editGlobalData(command) {
-    if (command.cmd == "addMeeting") {
-      const response = await fetch("/api/new-meetup", {
-        method: "POST",
-        body: JSON.stringify(command.newVal),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json(); // Should check here that it worked OK
-      setGlobals((previousGlobals) => {
-        const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-        newGlobals.meetings.push(command.newVal);
-        return newGlobals;
-      });
-    }
     if (command.cmd == "login") {
       const response = await fetch("/api/login", {
         method: "POST",

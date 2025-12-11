@@ -1,6 +1,6 @@
-import classes from "./MeetupDetail.module.css";
+import classes from "./HomePageDetail.module.css";
 
-function BankInfoDetail(props) {
+function HomePageDetail(props) {
   return (
     <section className={classes.detail}>
       <p>{props.name}</p>
@@ -11,4 +11,4 @@ function BankInfoDetail(props) {
   );
 }
 
-export default BankInfoDetail;
+export default HomePageDetail;

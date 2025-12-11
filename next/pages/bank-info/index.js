@@ -1,5 +1,5 @@
 // our-dimain.com/new-meetup
-import NewBankForm from "../../components/meetups/NewBankForm";
+import NewSettingsForm from "../../components/homePageComponents/NewSettingsForm";
 import { useRouter } from "next/router";
 import GlobalContext from "../../pages/store/globalContext";
 import { useContext } from "react";
@@ -15,7 +15,7 @@ function BankPage() {
     });
     router.push("/");
   }
-  return <NewBankForm onAddCard={addMeetupHandler} />;
+  return <NewSettingsForm onAddCard={addMeetupHandler} />;
 }
 
 export default BankPage;

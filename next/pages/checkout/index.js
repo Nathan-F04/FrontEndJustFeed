@@ -1,4 +1,4 @@
-import CheckoutDetails from "../../components/meetups/CheckoutDetails";
+import CheckoutDetails from "../../components/checkoutPageComponents/CheckoutDetails";
 import { useContext } from "react";
 import GlobalContext from "../store/globalContext";
 

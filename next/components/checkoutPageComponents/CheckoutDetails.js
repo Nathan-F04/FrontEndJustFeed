@@ -1,5 +1,5 @@
 import classes from "./CheckoutDetails.module.css";
-import Items from "./Items";
+import Items from "../orderPageComponents/Items";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 

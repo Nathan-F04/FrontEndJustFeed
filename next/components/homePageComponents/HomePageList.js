@@ -1,11 +1,11 @@
-import BankInfoItem from "./BankInfoItem";
-import classes from "./BankInfoList.module.css";
+import HomePageItem from "./HomePageItem";
+import classes from "./HomePageList.module.css";
 
-function BankInfoList(props) {
+function HomePageList(props) {
   return (
     <ul className={classes.list}>
       {props.foods.map((food) => (
-        <BankInfoItem
+        <HomePageItem
           key={food.id}
           id={food.id}
           title={food.item_name}
@@ -19,4 +19,4 @@ function BankInfoList(props) {
   );
 }
 
-export default BankInfoList;
+export default HomePageList;

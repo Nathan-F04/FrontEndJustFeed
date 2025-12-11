@@ -1,9 +1,9 @@
 import { useRef } from "react";
 
 import Card from "../ui/Card";
-import classes from "./NewBankForm.module.css";
+import classes from "./NewSettingsForm.module.css";
 
-function NewBankForm(props) {
+function NewSettingsForm(props) {
   const nameInputRef = useRef();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
@@ -101,4 +101,4 @@ function NewBankForm(props) {
   );
 }
 
-export default NewBankForm;
+export default NewSettingsForm;
