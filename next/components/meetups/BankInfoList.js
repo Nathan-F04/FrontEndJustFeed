@@ -1,5 +1,5 @@
-import BankInfoItem from './BankInfoItem';
-import classes from './BankInfoList.module.css';
+import BankInfoItem from "./BankInfoItem";
+import classes from "./BankInfoList.module.css";
 
 function BankInfoList(props) {
   return (

@@ -11,17 +11,17 @@
 }
 
 .orderInfo {
-    display: flex;
-    flex-direction: row;
-    background-color: antiquewhite;
-    background-color: white;
-    border-radius: 0px 0px 6px 6px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    padding: .2rem;
+  display: flex;
+  flex-direction: row;
+  background-color: antiquewhite;
+  background-color: white;
+  border-radius: 0px 0px 6px 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  padding: 0.2rem;
 }
 
 .orderInfo div {
-    margin: auto;
+  margin: auto;
 }
 
 .orderCard {
@@ -35,7 +35,7 @@
 .orderInfo button {
   font: inherit;
   cursor: pointer;
-  color:  white;
+  color: white;
   border: 1px solid #77002e;
   background-color: #310bdd;
   padding: 0.5rem 1.5rem;

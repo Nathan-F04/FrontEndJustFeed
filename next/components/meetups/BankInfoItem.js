@@ -1,13 +1,13 @@
-import Card from '../ui/Card';
-import classes from './BankInfoItem.module.css';
-import GlobalContext from '../../pages/store/globalContext';
-import { useContext } from 'react';
+import Card from "../ui/Card";
+import classes from "./BankInfoItem.module.css";
+import GlobalContext from "../../pages/store/globalContext";
+import { useContext } from "react";
 
 function BankInfoItem(props) {
-  const globalCtx = useContext(GlobalContext)
+  const globalCtx = useContext(GlobalContext);
 
   async function showDetailsHandler() {
-    await globalCtx.updateGlobals({cmd: 'addCartItem', newVal: props})
+    await globalCtx.updateGlobals({ cmd: "addCartItem", newVal: props });
   }
 
   return (
@@ -15,7 +15,7 @@ function BankInfoItem(props) {
       <Card>
         <div className={classes.content}>
           <h3>{props.title}</h3>
-          <img src={props.image}/>
+          <img src={props.image} />
           <p>€ {props.price}</p>
           <p>{props.description}</p>
           <button onClick={showDetailsHandler}>Add to Cart</button>

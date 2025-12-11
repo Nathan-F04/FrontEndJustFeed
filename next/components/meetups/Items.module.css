@@ -13,9 +13,9 @@
 }
 
 .description {
-    width: 20%;
-    word-wrap: break-word;
-    overflow: hidden;
+  width: 20%;
+  word-wrap: break-word;
+  overflow: hidden;
 }
 
 .content h3 {
@@ -26,9 +26,9 @@
 }
 
 .content img {
-    max-width: 9rem;
+  max-width: 9rem;
 }
 
 .description:hover {
-    overflow: auto;
+  overflow: auto;
 }

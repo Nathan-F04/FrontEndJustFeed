@@ -1,5 +1,5 @@
-import classes from "./CartPopUp.module.css"
-import CartItem from './CartItem';
+import classes from "./CartPopUp.module.css";
+import CartItem from "./CartItem";
 
 export default function CartPopup(props) {
   return (
@@ -14,5 +14,5 @@ export default function CartPopup(props) {
         />
       ))}
     </div>
-  )
+  );
 }
