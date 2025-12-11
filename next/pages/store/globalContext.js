@@ -121,11 +121,8 @@ export function GlobalContextProvider(props) {
         },
       });
       const data = await response.json();
-      console.log(data);
-      console.log(globals.cartItems);
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-        newGlobals.cartItems[command.id] = data;
         newGlobals.cartItems = newGlobals.cartItems.map((item) =>
           item.id === data.id ? data : item
         );
@@ -155,7 +152,6 @@ export function GlobalContextProvider(props) {
       });
     }
     if (command.cmd == "removeCartItem") {
-      const data = await response.json();
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
         newGlobals.cartItems = newGlobals.cartItems.filter(

@@ -1,5 +1,5 @@
 import GlobalContext from "../../pages/store/globalContext";
-import OrderItemList from "../../components/homePageComponents/OrderItemList";
+import OrderItemList from "../../components/orderPageComponents/OrderItemList"; 
 import { useContext } from "react";
 
 function NewMeetupPage() {
