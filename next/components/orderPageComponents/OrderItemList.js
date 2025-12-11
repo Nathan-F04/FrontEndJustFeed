@@ -1,5 +1,5 @@
-import classes from './OrderItemList.module.css';
-import OrderItem from './OrderItem';
+import classes from "./OrderItemList.module.css";
+import OrderItem from "../orderPageComponents/OrderItem";
 
 function OrderItemList(props) {
   return (

@@ -1,4 +1,4 @@
-import PaymentForm from "../../components/meetups/PaymentForm";
+import PaymentForm from "../../components/paymentPageComponents/PaymentForm";
 import { useRouter } from 'next/router';
 import GlobalContext from "../../pages/store/globalContext";
 import { useContext } from 'react';

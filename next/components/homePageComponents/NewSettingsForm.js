@@ -1,9 +1,9 @@
-import { useRef } from 'react';
+import { useRef } from "react";
 
-import Card from '../ui/Card';
-import classes from './NewBankForm.module.css';
+import Card from "../ui/Card";
+import classes from "./NewSettingsForm.module.css";
 
-function NewBankForm(props) {
+function NewSettingsForm(props) {
   const nameInputRef = useRef();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
@@ -38,38 +38,58 @@ function NewBankForm(props) {
       <Card>
         <form onSubmit={submitHandler}>
           <div className={classes.control}>
-            <label htmlFor='name'>Name</label>
-            <input type='text' required id='name' ref={nameInputRef} />
+            <label htmlFor="name">Name</label>
+            <input type="text" required id="name" ref={nameInputRef} />
           </div>
           <div className={classes.control}>
-            <label htmlFor='email'>Email</label>
-            <input type='email' required id='email' ref={emailInputRef} />
+            <label htmlFor="email">Email</label>
+            <input type="email" required id="email" ref={emailInputRef} />
           </div>
           <div className={classes.control}>
-            <label htmlFor='password'>Password</label>
-            <input type='text' required id='password' ref={passwordInputRef} />
-          </div>
-
-          <div className={classes.control}>
-            <label htmlFor='name on card'>Name on card:</label>
-            <input type='text' required id='name on card' ref={cardHolderNameInputRef} />
-          </div>
-          <div className={classes.control}>
-            <label htmlFor='card number'>Card Number:</label>
-            <input type='text' required id='card number' ref={creditCardNumberInputRef} />
-          </div>
-          <div className={classes.control}>
-            <label htmlFor='month of expirtion'>Month of expiry:</label>
-            <input type='text' required id='month of expirtion' ref={expMonthInputRef} />
+            <label htmlFor="password">Password</label>
+            <input type="text" required id="password" ref={passwordInputRef} />
           </div>
 
           <div className={classes.control}>
-            <label htmlFor='year of expirtion'>Year of expiry:</label>
-            <input type='text' required id='year of expirtion' ref={expYearInputRef} />
+            <label htmlFor="name on card">Name on card:</label>
+            <input
+              type="text"
+              required
+              id="name on card"
+              ref={cardHolderNameInputRef}
+            />
           </div>
           <div className={classes.control}>
-            <label htmlFor='cvc'>CVC:</label>
-            <input type='text' required id='cvc' ref={cvcInputRef} />
+            <label htmlFor="card number">Card Number:</label>
+            <input
+              type="text"
+              required
+              id="card number"
+              ref={creditCardNumberInputRef}
+            />
+          </div>
+          <div className={classes.control}>
+            <label htmlFor="month of expirtion">Month of expiry:</label>
+            <input
+              type="text"
+              required
+              id="month of expirtion"
+              ref={expMonthInputRef}
+            />
+          </div>
+
+          <div className={classes.control}>
+            <label htmlFor="year of expirtion">Year of expiry:</label>
+            <input
+              type="text"
+              required
+              id="year of expirtion"
+              ref={expYearInputRef}
+            />
+          </div>
+          <div className={classes.control}>
+            <label htmlFor="cvc">CVC:</label>
+            <input type="text" required id="cvc" ref={cvcInputRef} />
           </div>
 
           <div className={classes.actions}>
@@ -81,4 +101,4 @@ function NewBankForm(props) {
   );
 }
 
-export default NewBankForm;
+export default NewSettingsForm;

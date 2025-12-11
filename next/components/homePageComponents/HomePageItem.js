@@ -1,0 +1,28 @@
+import Card from "../ui/Card";
+import classes from "./HomePageItem.module.css";
+import GlobalContext from "../../pages/store/globalContext";
+import { useContext } from "react";
+
+function HomePageItem(props) {
+  const globalCtx = useContext(GlobalContext);
+
+  async function showDetailsHandler() {
+    await globalCtx.updateGlobals({ cmd: "addCartItem", newVal: props });
+  }
+
+  return (
+    <li className={classes.item}>
+      <Card>
+        <div className={classes.content}>
+          <h3>{props.title}</h3>
+          <img src={props.image} />
+          <p>€ {props.price}</p>
+          <p>{props.description}</p>
+          <button onClick={showDetailsHandler}>Add to Cart</button>
+        </div>
+      </Card>
+    </li>
+  );
+}
+
+export default HomePageItem;

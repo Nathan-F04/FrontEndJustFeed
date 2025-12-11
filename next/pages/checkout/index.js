@@ -1,13 +1,11 @@
-import CheckoutDetails from "../../components/meetups/CheckoutDetails";
+import CheckoutDetails from "../../components/checkoutPageComponents/CheckoutDetails";
 import { useContext } from "react";
 import GlobalContext from "../store/globalContext";
 
 function CheckouPage() {
-    const globalCtx = useContext(GlobalContext);
+  const globalCtx = useContext(GlobalContext);
 
-    return (
-        <CheckoutDetails items={globalCtx.theGlobalObject.cartItems}/>
-    );
+  return <CheckoutDetails items={globalCtx.theGlobalObject.cartItems} />;
 }
 
 export default CheckouPage;

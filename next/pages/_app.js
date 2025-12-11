@@ -1,6 +1,6 @@
-import '../styles/globals.css'
-import Layout from '../components/layout/Layout'
-import { GlobalContextProvider } from './store/globalContext';
+import "../styles/globals.css";
+import Layout from "../components/layout/Layout";
+import { GlobalContextProvider } from "./store/globalContext";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -12,4 +12,4 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-export default MyApp
+export default MyApp;
