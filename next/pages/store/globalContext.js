@@ -113,11 +113,6 @@ export function GlobalContextProvider(props) {
           },
         });
       const data = await response.json(); // Should check here that it worked OK
-      setGlobals((previousGlobals) => {
-        const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-        newGlobals.cards = data;
-        return newGlobals;
-      });
       getAllPastOrders();
     }
    
@@ -152,7 +147,6 @@ export function GlobalContextProvider(props) {
         return newGlobals;
       });
     }
- 
     if (command.cmd == "addCard") {
         const response = await fetch("/api/new-card", {
         method: "POST",
@@ -179,7 +173,16 @@ export function GlobalContextProvider(props) {
       const data = await response.json();
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-        newGlobals.cartItems.pop(command.newVal);
+        newGlobals.cartItems = newGlobals.cartItems.filter(item =>
+          item.id !== command.newVal.id
+        );
+        return newGlobals;
+      });
+    }
+    if (command.cmd == "clearCart") {
+      setGlobals((previousGlobals) => {
+        const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+        newGlobals.cartItems.splice(0, newGlobals.cartItems.length);
         return newGlobals;
       });
     }

@@ -13,20 +13,20 @@ function CartItem(props) {
 
     async function decChangeItemHandler() {
         if (props.quantity > 1) {
-            globalCtx.updateGlobals({cmd: 'setQuantiyInCart', newVal: {quantity: props.quantity - 1}, id: props.id});
+            await globalCtx.updateGlobals({cmd: 'setQuantiyInCart', newVal: {quantity: props.quantity - 1}, id: props.id});
             setCartPrice(props.price * (props.quantity - 1));
         }
     }
 
     async function incChangeItemHandler() {
-        globalCtx.updateGlobals({cmd: 'setQuantiyInCart', newVal: {quantity: props.quantity + 1}, id: props.id});
+        await globalCtx.updateGlobals({cmd: 'setQuantiyInCart', newVal: {quantity: props.quantity + 1}, id: props.id});
         setCartPrice(props.price * (props.quantity + 1));
     }
 
     return (
         <div className={classes.cartItem}>
             <img src={props.image} className={classes.cartItemImage}></img>
-            <p className={classes.cartItemText}>Quantity: {props.cartNum}</p>
+            <p className={classes.cartItemText}>Quantity: {props.quantity}</p>
             <div className={classes.buttonDiv}>
                 <QuantityButton text1="+" onClickHandler={incChangeItemHandler}/>
                 <span></span>

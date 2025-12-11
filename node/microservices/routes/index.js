@@ -25,6 +25,8 @@ let loginInfoSchema = new Schema({
 let cardInfo = oldMong.model('cardInfo', cardInfoschema);
 let loginInfo = oldMong.model('loginInfo', loginInfoSchema);
 
+
+
 router.get('/', async function (req, res, next) {
   const cardInfo = await getcardInfo();
   res.render('index');
@@ -42,7 +44,7 @@ router.post('/createCard', async function (req, res, next) {
   )
   res.json(retVal);
 });
- 
+
 // cRud   Should use GET . . . we'll fix this is Cloud next term
 router.get('/readCard', async function (req, res, next) {
   let data;
@@ -52,8 +54,6 @@ router.get('/readCard', async function (req, res, next) {
   // }
   res.json({ cardInfo: data });
 })
- 
-module.exports = router;
  
 let OrderItemReadschema = new Schema({
   id: Number,
@@ -132,7 +132,7 @@ router.post('/addItems', async function (req, res, next) {
   )
   res.json(retVal);
 });
- 
+
 // cRud   Should use GET . . . we'll fix this is Cloud next term
 router.get('/readItems', async function (req, res, next) {
   let data;

@@ -8,16 +8,12 @@ function PaymentForm(props) {
   function payHandler(event) {
     event.preventDefault();
 
-    let total_amount = 0;
-    for( const item in globalCtx.theGlobalObject.cartItems ) {
-      total_amount = total_amount + item.price;
-    }
     const catItemsData = {
-      total_amount: total_amount,
+      total_amount: sessionStorage.getItem('total_amount'),
       created_at: new Date(),
       items: [...globalCtx.theGlobalObject.cartItems]
     };
-
+    console.log(globalCtx.theGlobalObject.cartItems);
     props.onAddItems(catItemsData);
   }
 
