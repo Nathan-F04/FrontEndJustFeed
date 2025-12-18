@@ -89,6 +89,25 @@ export function GlobalContextProvider(props) {
         return newGlobals;
       });
     }
+
+    async function setQuantity(id, newVal) {
+      const response = await fetch(`/api/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify(newVal),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      setGlobals((previousGlobals) => {
+        const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+        newGlobals.cartItems = newGlobals.cartItems.map((item) =>
+          item.id === data.id ? data : item
+        );
+        return newGlobals;
+      });
+    }
+
     if (command.cmd == "addItems") {
       const response = await fetch("/api/add-items", {
         method: "POST",
@@ -113,21 +132,7 @@ export function GlobalContextProvider(props) {
       console.log(data);
     }
     if (command.cmd == "setQuantiyInCart") {
-      const response = await fetch(`/api/${command.id}`, {
-        method: "PATCH",
-        body: JSON.stringify(command.newVal),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json();
-      setGlobals((previousGlobals) => {
-        const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-        newGlobals.cartItems = newGlobals.cartItems.map((item) =>
-          item.id === data.id ? data : item
-        );
-        return newGlobals;
-      });
+      setQuantity(command.id, command.newVal);
     }
     if (command.cmd == "addCard") {
       const response = await fetch("/api/new-card", {
@@ -147,7 +152,14 @@ export function GlobalContextProvider(props) {
     if (command.cmd == "addCartItem") {
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-        newGlobals.cartItems.push(command.newVal);
+        const exists = newGlobals.cartItems.find(
+          (item) => item.id === command.newVal.id
+        );
+        if (!exists) {
+          newGlobals.cartItems.push(command.newVal);
+        } else {
+          setQuantity(command.newVal.id, {"quantity": exists.quantity+1})
+        }
         return newGlobals;
       });
     }

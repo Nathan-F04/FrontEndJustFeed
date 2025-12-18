@@ -1,7 +1,7 @@
 // /api/new-meetup
 
 async function handler(req, res) {
-  const response = await fetch("http://localhost:8003/api/orders_front");
+  const response = await fetch("http://localhost:8003/api/orders/items");
 
   const data = await response.json();
   res.status(200).json(data);
