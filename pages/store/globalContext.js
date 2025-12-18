@@ -158,7 +158,8 @@ export function GlobalContextProvider(props) {
         if (!exists) {
           newGlobals.cartItems.push(command.newVal);
         } else {
-          setQuantity(command.newVal.id, {"quantity": exists.quantity+1})
+          const newQuantity = exists.quantity + 1;
+          setQuantity(command.newVal.id, {"quantity": newQuantity});
         }
         return newGlobals;
       });
@@ -169,6 +170,7 @@ export function GlobalContextProvider(props) {
         newGlobals.cartItems = newGlobals.cartItems.filter(
           (item) => item.id !== command.newVal.id
         );
+        setQuantity(command.newVal.id, {"quantity": 1})
         return newGlobals;
       });
     }

@@ -12,7 +12,7 @@ function CheckoutDetails(props) {
 
   function getTotal() {
     const total = props.items.reduce(
-      (sum, item) => sum + Number(item.price),
+      (sum, item) => sum + Number(item.price) * Number(item.quantity),
       0
     );
     setPrice(total);
@@ -39,7 +39,7 @@ function CheckoutDetails(props) {
         </div>
       </div>
       <section className={classes.orderInfo}>
-        <p>Total Amount: {price}</p>
+        <p>Total Amount: {price.toFixed(2)}</p>
         <div></div>
         <button onClick={checkoutPayment}>Proceed to payment</button>
       </section>
