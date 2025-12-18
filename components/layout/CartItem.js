@@ -1,11 +1,10 @@
 import classes from "./CartItem.module.css";
 import QuantityButton from "../generic/QuantityButton";
 import GlobalContext from "../../pages/store/globalContext";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 
 function CartItem(props) {
   const globalCtx = useContext(GlobalContext);
-  let [cartPrice, setCartPrice] = useState(props.price * props.quantity);
 
   async function removeItemHandler() {
     globalCtx.updateGlobals({ cmd: "removeCartItem", newVal: props });
@@ -18,7 +17,6 @@ function CartItem(props) {
         newVal: { quantity: props.quantity - 1 },
         id: props.id,
       });
-      setCartPrice(props.price * (props.quantity - 1));
     }
   }
 
@@ -28,7 +26,6 @@ function CartItem(props) {
       newVal: { quantity: props.quantity + 1 },
       id: props.id,
     });
-    setCartPrice(props.price * (props.quantity + 1));
   }
 
   return (
@@ -40,7 +37,7 @@ function CartItem(props) {
         <span></span>
         <QuantityButton text1="-" onClickHandler={decChangeItemHandler} />
       </div>
-      <p className={classes.cartItemText}>Price: {cartPrice.toFixed(2)}</p>
+      <p className={classes.cartItemText}>Price: {(props.price * props.quantity).toFixed(2)}</p>
       <div className={classes.buttonDiv}>
         <QuantityButton text1="X" onClickHandler={removeItemHandler} />
       </div>
