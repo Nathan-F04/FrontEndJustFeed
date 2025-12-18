@@ -6,7 +6,7 @@ import { useContext } from "react";
 function HomePageItem(props) {
   const globalCtx = useContext(GlobalContext);
 
-  async function showDetailsHandler() {
+  async function addToCartHandler() {
     await globalCtx.updateGlobals({ cmd: "addCartItem", newVal: props });
   }
 
@@ -18,7 +18,7 @@ function HomePageItem(props) {
           <img src={props.image} />
           <p>€ {props.price}</p>
           <p>{props.description}</p>
-          <button onClick={showDetailsHandler}>Add to Cart</button>
+          <button onClick={addToCartHandler}>Add to Cart</button>
         </div>
       </Card>
     </li>
