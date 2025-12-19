@@ -1,6 +1,6 @@
 async function handler(req, res) {
   if (req.method === "POST") {
-    const response = await fetch("http://localhost:8000/createAccount", {
+    const response = await fetch("http://localhost:8001/api/login/sign-up", {
       method: "POST",
       body: JSON.stringify(req.body),
       headers: {

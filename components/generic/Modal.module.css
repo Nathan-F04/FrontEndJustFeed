@@ -1,0 +1,59 @@
+.mainDiv {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  max-width: 45rem;
+  margin-top: 10rem;
+  position: absolute;
+}
+
+.mainText {
+  font-size: xx-large;
+  color: black;
+  font-weight: bold;
+  overflow-wrap: normal;
+  padding: 2rem;
+  text-align: center;
+}
+
+.actions {
+  margin-top: 1rem;
+  text-align: right;
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+}
+
+.actions div {
+  margin: auto;
+}
+
+.actions button {
+  font: inherit;
+  cursor: pointer;
+  background-color: #1a2920;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border: 1px solid #77002e;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.actions button:hover,
+.actions button:active {
+  background-color: #a50e48;
+  border-color: #a50e48;
+}
+
+@media only screen and (max-width: 600px) {
+  .mainDiv {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    max-width: 15rem;
+  }
+}

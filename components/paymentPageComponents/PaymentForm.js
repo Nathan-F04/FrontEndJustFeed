@@ -13,7 +13,6 @@ function PaymentForm(props) {
       created_at: new Date(),
       items: [...globalCtx.theGlobalObject.cartItems],
     };
-    console.log(globalCtx.theGlobalObject.cartItems);
     props.onAddItems(catItemsData);
   }
 

@@ -14,6 +14,7 @@ export function GlobalContextProvider(props) {
     isLoggedIn: false,
     cardDataLoaded: false,
     isPastOrdersLoaded: false,
+    userId: 0,
   });
 
   useEffect(() => {
@@ -25,7 +26,6 @@ export function GlobalContextProvider(props) {
   async function getAllMeetings() {
     const response = await fetch("/api/orders");
     let data = await response.json();
-    console.log(data);
     setGlobals((previousGlobals) => {
       const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
       newGlobals.orders = data;
@@ -42,7 +42,6 @@ export function GlobalContextProvider(props) {
       },
     });
     let data = await response.json();
-    console.log(data);
     setGlobals((previousGlobals) => {
       const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
       newGlobals.cards = data;
@@ -59,11 +58,28 @@ export function GlobalContextProvider(props) {
       },
     });
     let data = await response.json();
-    console.log(data);
     setGlobals((previousGlobals) => {
       const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
       newGlobals.pastOrders = data;
       newGlobals.isPastOrdersLoaded = true;
+      return newGlobals;
+    });
+  }
+
+  async function setQuantity(id, newVal) {
+    const response = await fetch(`/api/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify(newVal),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    setGlobals((previousGlobals) => {
+      const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+      newGlobals.cartItems = newGlobals.cartItems.map((item) =>
+        item.id === data.id ? data : item
+      );
       return newGlobals;
     });
   }
@@ -79,33 +95,32 @@ export function GlobalContextProvider(props) {
       });
       const data = await response.json();
       let status = false;
-      console.log(data);
-      if (data.response === "success") {
+      if (data.response === "login Successful") {
         status = true;
       }
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
         newGlobals.isLoggedIn = status;
+        newGlobals.userId = data.id;
         return newGlobals;
       });
     }
 
-    async function setQuantity(id, newVal) {
-      const response = await fetch(`/api/${id}`, {
-        method: "PATCH",
-        body: JSON.stringify(newVal),
+    if (command.cmd == "deleteAccount") {
+      const response = await fetch(`/api/login/${globals.userId}`, {
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
       });
-      const data = await response.json();
-      setGlobals((previousGlobals) => {
-        const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-        newGlobals.cartItems = newGlobals.cartItems.map((item) =>
-          item.id === data.id ? data : item
-        );
-        return newGlobals;
-      });
+      if (response === 204) {
+        setGlobals((previousGlobals) => {
+          const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+          newGlobals.isLoggedIn = false;
+          newGlobals.userId = 0;
+          return newGlobals;
+        });
+      }
     }
 
     if (command.cmd == "addItems") {
@@ -129,7 +144,6 @@ export function GlobalContextProvider(props) {
         },
       });
       const data = await response.json();
-      console.log(data);
     }
     if (command.cmd == "setQuantiyInCart") {
       setQuantity(command.id, command.newVal);
@@ -159,7 +173,7 @@ export function GlobalContextProvider(props) {
           newGlobals.cartItems.push(command.newVal);
         } else {
           const newQuantity = exists.quantity + 1;
-          setQuantity(command.newVal.id, {"quantity": newQuantity});
+          setQuantity(command.newVal.id, { quantity: newQuantity });
         }
         return newGlobals;
       });
@@ -170,7 +184,7 @@ export function GlobalContextProvider(props) {
         newGlobals.cartItems = newGlobals.cartItems.filter(
           (item) => item.id !== command.newVal.id
         );
-        setQuantity(command.newVal.id, {"quantity": 1})
+        setQuantity(command.newVal.id, { quantity: 1 });
         return newGlobals;
       });
     }

@@ -5,6 +5,7 @@ import GlobalContext from "../../pages/store/globalContext";
 
 function Login() {
   const globalCtx = useContext(GlobalContext);
+  const userNameInputRef = useRef();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const [toggleModal, setToggleModal] = useState(false);
@@ -14,8 +15,15 @@ function Login() {
 
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
+    const enteredUserName = userNameInputRef.current?.value;
 
     const loginDetails = {
+      email: enteredEmail,
+      password: enteredPassword,
+    };
+
+    const signUpDetails = {
+      name: enteredUserName,
       email: enteredEmail,
       password: enteredPassword,
     };
@@ -23,7 +31,7 @@ function Login() {
     if (toggleModal) {
       await globalCtx.updateGlobals({
         cmd: "createAccount",
-        newVal: loginDetails,
+        newVal: signUpDetails,
       });
     } else {
       await globalCtx.updateGlobals({ cmd: "login", newVal: loginDetails });
@@ -42,6 +50,12 @@ function Login() {
     <div className={classes.mainDiv}>
       <Card>
         <form className={classes.form} onSubmit={preventDefaultEvent}>
+          {toggleModal && (
+            <div className={classes.control}>
+              <label htmlFor="name">User Name</label>
+              <input type="text" required id="name" ref={userNameInputRef} />
+            </div>
+          )}
           <div className={classes.control}>
             <label htmlFor="email">Email</label>
             <input type="email" required id="email" ref={emailInputRef} />
