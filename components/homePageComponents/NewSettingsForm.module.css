@@ -25,6 +25,17 @@
   width: 100%;
 }
 
+.addCardButton {
+  margin-top: 1rem;
+  font-weight: bold;
+  background-color: rgb(206, 206, 206);
+  border: none;
+}
+
+.addCardButton:hover {
+  background-color: darkgray;
+}
+
 .actions {
   margin-top: 1rem;
   text-align: right;

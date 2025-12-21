@@ -11,7 +11,7 @@ export function GlobalContextProvider(props) {
     cartItems: [],
     pastOrders: [],
     dataLoaded: false,
-    isLoggedIn: false,
+    isLoggedIn: true,
     cardDataLoaded: false,
     isPastOrdersLoaded: false,
     userId: 0,
