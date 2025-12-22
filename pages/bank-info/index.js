@@ -1,7 +1,7 @@
 // our-dimain.com/new-meetup
 import NewSettingsForm from "../../components/homePageComponents/NewSettingsForm";
 import { useRouter } from "next/router";
-import GlobalContext from "../../store/globalContext";
+import GlobalContext from "../store/globalContext";
 import { useContext } from "react";
 
 function BankPage() {
