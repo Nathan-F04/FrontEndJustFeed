@@ -1,6 +1,6 @@
 import Card from "../ui/Card";
 import classes from "./HomePageItem.module.css";
-import GlobalContext from "../../store/globalContext";
+import GlobalContext from "../../pages/store/globalContext";
 import { useContext } from "react";
 
 function HomePageItem(props) {

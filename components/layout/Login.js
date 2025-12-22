@@ -1,7 +1,7 @@
 import Card from "../ui/Card";
 import { useRef, useState, useContext } from "react";
 import classes from "./Login.module.css";
-import GlobalContext from "../../store/globalContext";
+import GlobalContext from "../../pages/store/globalContext";
 
 function Login() {
   const globalCtx = useContext(GlobalContext);
