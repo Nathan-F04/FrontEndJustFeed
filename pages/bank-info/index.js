@@ -10,8 +10,8 @@ function BankPage() {
 
   async function addMeetupHandler(enteredMeetupData) {
     await globalCtx.updateGlobals({
-      cmd: "addCard",
-      newVal: enteredMeetupData,
+      // cmd: "addCard",
+      // newVal: enteredMeetupData,
     });
     router.push("/");
   }
