@@ -8,7 +8,7 @@ function HomePageList(props) {
         <HomePageItem
           key={food.id}
           id={food.id}
-          title={food.item_name}
+          title={food.title}
           price={food.price}
           image={food.image}
           description={food.description}
