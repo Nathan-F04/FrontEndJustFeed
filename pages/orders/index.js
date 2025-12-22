@@ -1,4 +1,4 @@
-import GlobalContext from "../../pages/store/globalContext";
+import GlobalContext from "../../store/globalContext";
 import OrderItemList from "../../components/orderPageComponents/OrderItemList"; 
 import { useContext } from "react";
 
