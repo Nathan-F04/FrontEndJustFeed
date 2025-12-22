@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useRef } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const GlobalContext = createContext();
 
@@ -50,19 +50,19 @@ export function GlobalContextProvider(props) {
   }
 
   async function getAllCards() {
-    // const response = await fetch("/api/new-card", {
-    //   method: "GET",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
-    // let data = await response.json();
-    // setGlobals((previousGlobals) => {
-    //   const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-    //   newGlobals.cards = data;
-    //   newGlobals.cardDataLoaded = true;
-    //   return newGlobals;
-    // });
+    const response = await fetch("/api/new-card", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    let data = await response.json();
+    setGlobals((previousGlobals) => {
+      const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+      newGlobals.cards = data;
+      newGlobals.cardDataLoaded = true;
+      return newGlobals;
+    });
   }
 
   async function getAllPastOrders() {
@@ -163,21 +163,21 @@ export function GlobalContextProvider(props) {
     if (command.cmd == "setQuantiyInCart") {
       setQuantity(command.id, command.newVal);
     }
-    // if (command.cmd == "addCard") {
-    //   const response = await fetch("/api/new-card", {
-    //     method: "POST",
-    //     body: JSON.stringify(command.newVal),
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   });
-    //   const data = await response.json(); // Should check here that it worked OK
-    //   setGlobals((previousGlobals) => {
-    //     const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-    //     newGlobals.cards = data;
-    //     return newGlobals;
-    //   });
-    // }
+    if (command.cmd == "addCard") {
+      const response = await fetch("/api/new-card", {
+        method: "POST",
+        body: JSON.stringify(command.newVal),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json(); // Should check here that it worked OK
+      setGlobals((previousGlobals) => {
+        const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+        newGlobals.cards = data;
+        return newGlobals;
+      });
+    }
     if (command.cmd == "addCartItem") {
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
