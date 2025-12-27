@@ -8,14 +8,27 @@ function BankPage() {
   const router = useRouter();
   const globalCtx = useContext(GlobalContext);
 
-  async function addMeetupHandler(enteredMeetupData) {
+  async function addCardHandler(enteredCardData) {
     await globalCtx.updateGlobals({
       cmd: "addCard",
-      newVal: enteredMeetupData,
+      newVal: enteredCardData,
+    });
+  }
+
+  async function changeDetailsHandler(enteredDetails) {
+    await globalCtx.updateGlobals({
+      cmd: "changeDetails",
+      newVal: enteredDetails,
     });
     router.push("/");
   }
-  return <NewSettingsForm onAddCard={addMeetupHandler} />;
+
+  return (
+    <NewSettingsForm
+      onAddCard={addCardHandler}
+      onChangeDetails={changeDetailsHandler}
+    />
+  );
 }
 
 export default BankPage;

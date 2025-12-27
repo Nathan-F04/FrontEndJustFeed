@@ -31,6 +31,29 @@ function NewSettingsForm(props) {
     const cardData = {
       nameOnCard: enteredcardHolderName,
       creditCardNumber: enteredcreditCardNumber,
+      expMonth: parseInt(enteredexpMonth),
+      expYear: parseInt(enteredexpYear),
+      cvc: parseInt(enteredcvc),
+    };
+
+    console.log(cardData);
+    console.log(globalCtx.theGlobalObject.cards);
+
+    props.onAddCard(cardData);
+  }
+
+  async function editCardHandler(event) {
+    event.preventDefault();
+
+    const enteredcardHolderName = cardHolderNameInputRef.current.value;
+    const enteredcreditCardNumber = creditCardNumberInputRef.current.value;
+    const enteredexpMonth = expMonthInputRef.current.value;
+    const enteredexpYear = expYearInputRef.current.value;
+    const enteredcvc = cvcInputRef.current.value;
+
+    const cardData = {
+      nameOnCard: enteredcardHolderName,
+      creditCardNumber: enteredcreditCardNumber,
       expMonth: enteredexpMonth,
       expYear: enteredexpYear,
       cvc: enteredcvc,
@@ -52,7 +75,7 @@ function NewSettingsForm(props) {
       password: enteredPassword,
     };
 
-    props.onAddCard(details);
+    props.onChangeDetails(details);
   }
 
   function toggleModalHandler() {
@@ -164,6 +187,67 @@ function NewSettingsForm(props) {
               </form>
             </Card>
           )}
+          <h1>Past Cards:</h1>
+          {globalCtx.theGlobalObject.cards.map((card) => (
+            <Card>
+              <form>
+                <div className={classes.control}>
+                  <label htmlFor="name on card">Name on card:</label>
+                  <input
+                    type="text"
+                    defaultValue={card.nameOnCard}
+                    required
+                    id="name on card"
+                    ref={cardHolderNameInputRef}
+                  />
+                </div>
+                <div className={classes.control}>
+                  <label htmlFor="card number">Card Number:</label>
+                  <input
+                    type="text"
+                    defaultValue={card.creditCardNumber}
+                    required
+                    id="card number"
+                    ref={creditCardNumberInputRef}
+                  />
+                </div>
+                <div className={classes.control}>
+                  <label htmlFor="month of expirtion">Month of expiry:</label>
+                  <input
+                    type="text"
+                    defaultValue={card.expMonth}
+                    required
+                    id="month of expirtion"
+                    ref={expMonthInputRef}
+                  />
+                </div>
+                <div className={classes.control}>
+                  <label htmlFor="year of expirtion">Year of expiry:</label>
+                  <input
+                    type="text"
+                    defaultValue={card.expYear}
+                    required
+                    id="year of expirtion"
+                    ref={expYearInputRef}
+                  />
+                </div>
+                <div className={classes.control}>
+                  <label htmlFor="cvc">CVC:</label>
+                  <input
+                    type="text"
+                    defaultValue={card.cvc}
+                    required
+                    id="cvc"
+                    ref={cvcInputRef}
+                  />
+                </div>
+                <div className={classes.actions}>
+                  <div></div>
+                  <button onClick={editCardHandler}>Edit Card</button>
+                </div>
+              </form>
+            </Card>
+          ))}
         </>
       )}
     </div>
