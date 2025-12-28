@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useRef } from "react";
 
 const GlobalContext = createContext();
 
@@ -11,16 +11,31 @@ export function GlobalContextProvider(props) {
     cartItems: [],
     pastOrders: [],
     dataLoaded: false,
-    isLoggedIn: false,
+    isLoggedIn: true,
     cardDataLoaded: false,
     isPastOrdersLoaded: false,
     userId: 0,
+    messages: [],
   });
 
+  const ws = useRef(null);
+   
   useEffect(() => {
+    ws.current = new WebSocket("ws://localhost:8080/ws");
+    ws.current.onopen = () => console.log("WebSocket connected");
+    ws.current.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      setGlobals((prev) => ({
+        ...prev,
+        messages: [...prev.messages, data.message],
+      }));
+    };
+
+    ws.current.onclose = () => console.log("WebSocket disconnected");
     getAllCards();
     getAllPastOrders();
     getAllMeetings();
+    return () => ws.current.close();
   }, []);
 
   async function getAllMeetings() {

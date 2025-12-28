@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import classes from "./PaymentForm.module.css";
-import GlobalContext from "../../store/globalContext";
+import GlobalContext from "../../pages/store/globalContext";
 
 function PaymentForm(props) {
   const globalCtx = useContext(GlobalContext);
@@ -9,14 +9,16 @@ function PaymentForm(props) {
     event.preventDefault();
 
     const catItemsData = {
-      total_amount: sessionStorage.getItem("total_amount"),
+      user_id: globalCtx.theGlobalObject.userId,
+      total_amount: Number(sessionStorage.getItem("total_amount")),
       created_at: new Date(),
       items: [...globalCtx.theGlobalObject.cartItems],
     };
+    console.log(catItemsData);
     props.onAddItems(catItemsData);
   }
-
-  return globalCtx.theGlobalObject.cardDataLoaded ? (
+  //globalCtx.theGlobalObject.cardDataLoaded ?
+  return (
     <div>
       <form className={classes.form}>
         <div className={classes.orderCard}>
@@ -100,7 +102,7 @@ function PaymentForm(props) {
         </div>
       </form>
     </div>
-  ) : null;
+  );
 }
 
 export default PaymentForm;
