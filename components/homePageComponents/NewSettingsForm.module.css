@@ -32,6 +32,10 @@
   border: none;
 }
 
+.errorMsg {
+  color: red;
+}
+
 .addCardButton:hover {
   background-color: darkgray;
 }

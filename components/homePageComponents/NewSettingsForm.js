@@ -16,7 +16,9 @@ function NewSettingsForm(props) {
   const cvcInputRef = useRef();
 
   const [toggleModal, setToggleModal] = useState(false);
+  const [toggleSaveButton, setToggleSaveButton] = useState(false);
   const [toggleAddCardForm, setAddCardForm] = useState(false);
+  const [toggleErrorMsg, setToggleErrorMsg] = useState(false);
   const globalCtx = useContext(GlobalContext);
 
   async function submitCardHandler(event) {
@@ -75,7 +77,12 @@ function NewSettingsForm(props) {
       password: enteredPassword,
     };
 
-    props.onChangeDetails(details);
+    if (details.name && details.email && details.password) {
+      setToggleErrorMsg(false);
+      props.onChangeDetails(details);
+    } else {
+      setToggleErrorMsg(true);
+    }
   }
 
   function toggleModalHandler() {
@@ -93,6 +100,10 @@ function NewSettingsForm(props) {
 
   function toggleAddCardFormHandler() {
     setAddCardForm(!toggleAddCardForm);
+  }
+
+  function onEdit() {
+    setToggleSaveButton(true);
   }
 
   return (
@@ -124,6 +135,11 @@ function NewSettingsForm(props) {
                   ref={passwordInputRef}
                 />
               </div>
+              {toggleErrorMsg && (
+                <p className={classes.errorMsg}>
+                  Please fill out ALL provided fields
+                </p>
+              )}
               <div className={classes.actions}>
                 <button onClick={submitDetailsHandler}>Save details</button>
                 <div></div>
@@ -146,6 +162,7 @@ function NewSettingsForm(props) {
                     type="text"
                     required
                     id="name on card"
+                    placeholder="John"
                     ref={cardHolderNameInputRef}
                   />
                 </div>
@@ -155,6 +172,7 @@ function NewSettingsForm(props) {
                     type="text"
                     required
                     id="card number"
+                    placeholder="1234567890123456"
                     ref={creditCardNumberInputRef}
                   />
                 </div>
@@ -163,6 +181,7 @@ function NewSettingsForm(props) {
                   <input
                     type="text"
                     required
+                    placeholder="12"
                     id="month of expirtion"
                     ref={expMonthInputRef}
                   />
@@ -172,13 +191,20 @@ function NewSettingsForm(props) {
                   <input
                     type="text"
                     required
+                    placeholder="2025"
                     id="year of expirtion"
                     ref={expYearInputRef}
                   />
                 </div>
                 <div className={classes.control}>
                   <label htmlFor="cvc">CVC:</label>
-                  <input type="text" required id="cvc" ref={cvcInputRef} />
+                  <input
+                    type="text"
+                    placeholder="123"
+                    required
+                    id="cvc"
+                    ref={cvcInputRef}
+                  />
                 </div>
                 <div className={classes.actions}>
                   <div></div>
@@ -196,6 +222,7 @@ function NewSettingsForm(props) {
                   <input
                     type="text"
                     defaultValue={card.nameOnCard}
+                    onChange={onEdit}
                     required
                     id="name on card"
                     ref={cardHolderNameInputRef}
@@ -206,6 +233,7 @@ function NewSettingsForm(props) {
                   <input
                     type="text"
                     defaultValue={card.creditCardNumber}
+                    onChange={onEdit}
                     required
                     id="card number"
                     ref={creditCardNumberInputRef}
@@ -216,6 +244,7 @@ function NewSettingsForm(props) {
                   <input
                     type="text"
                     defaultValue={card.expMonth}
+                    onChange={onEdit}
                     required
                     id="month of expirtion"
                     ref={expMonthInputRef}
@@ -226,6 +255,7 @@ function NewSettingsForm(props) {
                   <input
                     type="text"
                     defaultValue={card.expYear}
+                    onChange={onEdit}
                     required
                     id="year of expirtion"
                     ref={expYearInputRef}
@@ -236,14 +266,18 @@ function NewSettingsForm(props) {
                   <input
                     type="text"
                     defaultValue={card.cvc}
+                    onChange={onEdit}
                     required
                     id="cvc"
                     ref={cvcInputRef}
                   />
                 </div>
                 <div className={classes.actions}>
+                  {/* <button>Set as Active</button> needs to be implemented on the backend */}
                   <div></div>
-                  <button onClick={editCardHandler}>Edit Card</button>
+                  {toggleSaveButton && (
+                    <button onClick={editCardHandler}>Save Changes</button>
+                  )}
                 </div>
               </form>
             </Card>

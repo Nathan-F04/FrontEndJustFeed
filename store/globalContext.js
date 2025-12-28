@@ -11,10 +11,10 @@ export function GlobalContextProvider(props) {
     cartItems: [],
     pastOrders: [],
     dataLoaded: false,
-    isLoggedIn: true,
+    isLoggedIn: false,
     cardDataLoaded: false,
     isPastOrdersLoaded: false,
-    userId: 1,
+    userId: 0,
   });
 
   useEffect(() => {
@@ -124,6 +124,17 @@ export function GlobalContextProvider(props) {
       }
     }
 
+    if (command.cmd == "changeDetails") {
+      const response = await fetch(`/api/login/${globals.userId}`, {
+        method: "PATCH",
+        body: JSON.stringify(command.newVal),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      await response.json();
+    }
+
     if (command.cmd == "addItems") {
       const response = await fetch("/api/add-items", {
         method: "POST",
@@ -132,7 +143,7 @@ export function GlobalContextProvider(props) {
           "Content-Type": "application/json",
         },
       });
-      const data = await response.json(); // Should check here that it worked OK
+      await response.json(); // Should check here that it worked OK
       getAllPastOrders();
     }
 
