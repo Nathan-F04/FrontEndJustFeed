@@ -26,19 +26,6 @@ async function handler(req, res) {
     const data = await response.json();
     res.json(data);
   }
-  if (req.method === "GET") {
-    const response = await fetch(
-      `http://localhost:8001/api/login/view/${accountId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const data = await response.json();
-    res.json(data);
-  }
 }
 
 export default handler;

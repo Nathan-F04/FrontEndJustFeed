@@ -50,16 +50,17 @@ export function GlobalContextProvider(props) {
   }
 
   async function getAllCards() {
-    const response = await fetch("/api/new-card", {
+    const response = await fetch(`/api/banking/${globals.userId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     });
     let data = await response.json();
+    console.log([data]);
     setGlobals((previousGlobals) => {
       const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-      newGlobals.cards = data;
+      newGlobals.cards = [data];
       newGlobals.cardDataLoaded = true;
       return newGlobals;
     });
@@ -138,6 +139,17 @@ export function GlobalContextProvider(props) {
       }
     }
 
+    if (command.cmd == "changeDetails") {
+      const response = await fetch(`/api/login/${globals.userId}`, {
+        method: "PATCH",
+        body: JSON.stringify(command.newVal),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      await response.json();
+    }
+
     if (command.cmd == "addItems") {
       const response = await fetch("/api/add-items", {
         method: "POST",
@@ -146,7 +158,7 @@ export function GlobalContextProvider(props) {
           "Content-Type": "application/json",
         },
       });
-      const data = await response.json(); // Should check here that it worked OK
+      await response.json(); // Should check here that it worked OK
       getAllPastOrders();
     }
 
@@ -164,7 +176,7 @@ export function GlobalContextProvider(props) {
       setQuantity(command.id, command.newVal);
     }
     if (command.cmd == "addCard") {
-      const response = await fetch("/api/new-card", {
+      const response = await fetch("/api/banking", {
         method: "POST",
         body: JSON.stringify(command.newVal),
         headers: {
@@ -174,7 +186,8 @@ export function GlobalContextProvider(props) {
       const data = await response.json(); // Should check here that it worked OK
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-        newGlobals.cards = data;
+        newGlobals.cards.push(data);
+        newGlobals.cardDataLoaded = true;
         return newGlobals;
       });
     }
