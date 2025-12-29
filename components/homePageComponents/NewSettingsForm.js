@@ -215,7 +215,7 @@ function NewSettingsForm(props) {
           )}
           <h1>Past Cards:</h1>
           {globalCtx.theGlobalObject.cards.map((card) => (
-            <Card>
+            <Card key={card.index()}>
               <form>
                 <div className={classes.control}>
                   <label htmlFor="name on card">Name on card:</label>
