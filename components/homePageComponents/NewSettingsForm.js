@@ -3,7 +3,7 @@ import { useContext, useRef, useState } from "react";
 import Card from "../ui/Card";
 import Modal from "../generic/Modal";
 import classes from "./NewSettingsForm.module.css";
-import GlobalContext from "../../pages/store/globalContext";
+import GlobalContext from "../../store/globalContext";
 
 function NewSettingsForm(props) {
   const nameInputRef = useRef();
@@ -215,7 +215,7 @@ function NewSettingsForm(props) {
           )}
           <h1>Past Cards:</h1>
           {globalCtx.theGlobalObject.cards.map((card) => (
-            <Card>
+            <Card key={card.index()}>
               <form>
                 <div className={classes.control}>
                   <label htmlFor="name on card">Name on card:</label>

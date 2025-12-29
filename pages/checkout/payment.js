@@ -1,6 +1,6 @@
 import PaymentForm from "../../components/paymentPageComponents/PaymentForm";
 import { useRouter } from 'next/router';
-import GlobalContext from "../store/globalContext";
+import GlobalContext from "../../store/globalContext";
 import { useContext } from 'react';
 
 function PaymentPage() {
