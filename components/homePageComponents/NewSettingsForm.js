@@ -3,7 +3,7 @@ import { useContext, useRef, useState } from "react";
 import Card from "../ui/Card";
 import Modal from "../generic/Modal";
 import classes from "./NewSettingsForm.module.css";
-import GlobalContext from "../../pages/store/globalContext";
+import GlobalContext from "../../store/globalContext";
 
 function NewSettingsForm(props) {
   const nameInputRef = useRef();

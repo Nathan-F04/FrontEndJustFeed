@@ -4,7 +4,7 @@ import Button from "../generic/Button";
 import Cart from "../generic/Cart";
 import Sidebar from "./Sidebar";
 import CartPopUp from "./CartPopUp";
-import GlobalContext from "../../pages/store/globalContext";
+import GlobalContext from "../../store/globalContext";
 import { useRouter } from "next/router";
 import Login from "./Login";
 import { GiShoppingCart } from "react-icons/gi";

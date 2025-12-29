@@ -1,6 +1,6 @@
 import classes from "./CartItem.module.css";
 import QuantityButton from "../generic/QuantityButton";
-import GlobalContext from "../../pages/store/globalContext";
+import GlobalContext from "../../store/globalContext";
 import { useContext } from "react";
 
 function CartItem(props) {

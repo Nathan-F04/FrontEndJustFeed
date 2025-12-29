@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import GlobalContext from "../../pages/store/globalContext";
+import GlobalContext from "../../store/globalContext";
 
 export default function Notifications() {
   const globalCtx = useContext(GlobalContext);
