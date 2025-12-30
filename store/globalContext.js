@@ -18,7 +18,7 @@ export function GlobalContextProvider(props) {
     messages: [],
   });
 
-  const ws = useRef(null);
+ /* const ws = useRef(null);
    
   useEffect(() => {
     ws.current = new WebSocket("ws://localhost:8080/ws");
@@ -36,7 +36,7 @@ export function GlobalContextProvider(props) {
     getAllPastOrders();
     getAllMeetings();
     return () => ws.current.close();
-  }, []);
+  }, []);*/
 
   async function getAllMeetings() {
     const response = await fetch("/api/orders");
