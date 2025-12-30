@@ -1,12 +1,13 @@
 .thePopup {
-  background-color: rgb(252, 180, 26);
+  background-color: rgb(238, 238, 238);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   border-radius: 0 0 2% 2%;
-  width: 30%;
+  width: 13%;
   height: 50%;
   position: absolute;
   top: 5rem;
   right: 7rem;
   min-width: 5rem;
+  word-wrap: break-word;
   overflow: auto;
 }

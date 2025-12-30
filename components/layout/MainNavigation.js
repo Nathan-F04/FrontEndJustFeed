@@ -48,22 +48,24 @@ function MainNavigation() {
           toggleMenuHide={() => cartMenuHide()}
         />
       )}
-      {notificationBoxToggle && (
-        <NotificationBox
-        />
-      )}
+      {notificationBoxToggle && <NotificationBox />}
       <HamMenu toggleMenuHide={() => toggleMenuHide()} />
       <div className={classes.v1}></div>
       <img className={classes.logo} src="Just-feed.png" alt="Logo" />
+      <div className={classes.badge}>
+        {globalCtx.theGlobalObject.messages?.length > 0 && (
+          <span>{globalCtx.theGlobalObject.messages.length}</span>
+        )}
+        <Cart
+          maxWidth="70px"
+          icon={<FaBell />}
+          toggleMenuHide={() => notificationBoxHide()}
+        />
+      </div>
       <Cart
         maxWidth="70px"
         icon={<GiShoppingCart />}
         toggleMenuHide={() => cartMenuHide()}
-      />
-      <Cart
-        maxWidth="70px"
-        icon={<FaBell />}
-        toggleMenuHide={() => notificationBoxHide()}
       />
       <Button
         text1="Checkout"
