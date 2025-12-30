@@ -2,7 +2,7 @@ async function handler(req, res) {
   const { accountId } = req.query;
   if (req.method === "DELETE") {
     const response = await fetch(
-      `http://localhost:8001/api/login/delete/${accountId}`,
+      `${process.env.LOGIN_API_URL}/api/login/delete/${accountId}`,
       {
         method: "DELETE",
         headers: {
@@ -14,7 +14,7 @@ async function handler(req, res) {
   }
   if (req.method === "PATCH") {
     const response = await fetch(
-      `http://localhost:8001/api/login/patch/${accountId}`,
+      `${process.env.LOGIN_API_URL}/api/login/patch/${accountId}`,
       {
         method: "PATCH",
         body: JSON.stringify(req.body),
