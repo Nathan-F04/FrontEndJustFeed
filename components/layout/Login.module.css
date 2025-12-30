@@ -3,7 +3,7 @@
   left: 36.4%;
   width: 60%;
   position: absolute;
-  z-index: 50;
+  z-index: 99;
 }
 
 .form {

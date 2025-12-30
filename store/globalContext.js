@@ -11,7 +11,7 @@ export function GlobalContextProvider(props) {
     cartItems: [],
     pastOrders: [],
     dataLoaded: false,
-    isLoggedIn: true,
+    isLoggedIn: false,
     cardDataLoaded: false,
     isPastOrdersLoaded: false,
     userId: 0,
@@ -19,7 +19,7 @@ export function GlobalContextProvider(props) {
   });
 
   const ws = useRef(null);
-   
+
   useEffect(() => {
     ws.current = new WebSocket("ws://localhost:8080/ws");
     ws.current.onopen = () => console.log("WebSocket connected");
