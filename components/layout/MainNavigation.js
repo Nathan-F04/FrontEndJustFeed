@@ -37,9 +37,11 @@ function MainNavigation() {
 
   return (
     <header className={classes.header}>
-      {!globalCtx.theGlobalObject.isLoggedIn && <Login />}
       {!globalCtx.theGlobalObject.isLoggedIn && (
-        <div className={classes.backgroundBlur}></div>
+        <>
+          <div className={classes.backgroundBlur}></div>
+          <Login />
+        </>
       )}
       {popupToggle && <Sidebar toggleMenuHide={() => toggleMenuHide()} />}
       {cartpopupToggle && (

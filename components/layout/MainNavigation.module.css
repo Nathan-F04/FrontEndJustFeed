@@ -19,11 +19,11 @@
 }
 
 .backgroundBlur {
-  height: 200%;
-  width: 100%;
   background-color: grey;
-  position: absolute;
+  inset: 0;
+  position: fixed;
   opacity: 0.5;
+  z-index: 98;
 }
 
 .badge {
