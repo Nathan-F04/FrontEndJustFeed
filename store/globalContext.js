@@ -18,10 +18,10 @@ export function GlobalContextProvider(props) {
     messages: [],
   });
 
- /* const ws = useRef(null);
+  const ws = useRef(null);
    
   useEffect(() => {
-    ws.current = new WebSocket("ws://localhost:8080/ws"); 
+    ws.current = new WebSocket("ws://localhost:8003/ws"); 
     ws.current.onopen = () => console.log("WebSocket connected");
     ws.current.onmessage = (event) => {
       const data = JSON.parse(event.data);
@@ -36,7 +36,7 @@ export function GlobalContextProvider(props) {
     getAllPastOrders();
     getAllMeetings();
     return () => ws.current.close();
-  }, []);*/
+  }, []);
 
   async function getAllMeetings() {
     const response = await fetch("/api/orders");
