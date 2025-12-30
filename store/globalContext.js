@@ -24,13 +24,17 @@ export function GlobalContextProvider(props) {
     ws.current = new WebSocket("ws://localhost:8003/ws"); 
     ws.current.onopen = () => console.log("WebSocket connected");
     ws.current.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      setGlobals((prev) => ({
-        ...prev,
-        messages: [...prev.messages, data.message],
-      }));
+      try {
+        const data = JSON.parse(event.data);
+        setGlobals((prev) => ({
+          ...prev,
+          messages: [...prev.messages, data.message],
+        }));
+      } catch (error) {
+        console.error("WebSocket message parse error:", error);
+      }
     };
-
+    ws.current.onerror = (error) => console.error("WebSocket error:", error);
     ws.current.onclose = () => console.log("WebSocket disconnected");
     getAllCards();
     getAllPastOrders();
