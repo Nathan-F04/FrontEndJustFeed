@@ -1,6 +1,6 @@
 import Card from "../ui/Card";
 import { useContext, useRef, useState } from "react";
-import GlobalContext from "../../pages/store/globalContext";
+import GlobalContext from "../../store/globalContext";
 import classes from "./PastCards.module.css";
 
 function PastCards(props) {

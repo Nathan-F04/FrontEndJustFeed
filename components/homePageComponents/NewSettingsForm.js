@@ -3,7 +3,7 @@ import { useContext, useRef, useState } from "react";
 import Card from "../ui/Card";
 import Modal from "../generic/Modal";
 import classes from "./NewSettingsForm.module.css";
-import GlobalContext from "../../pages/store/globalContext";
+import GlobalContext from "../../store/globalContext";
 import PastCards from "./PastCards";
 
 function NewSettingsForm(props) {
