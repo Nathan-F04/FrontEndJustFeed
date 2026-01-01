@@ -70,7 +70,7 @@ export function GlobalContextProvider(props) {
     console.log(data);
     setGlobals((previousGlobals) => {
       const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-      newGlobals.cards = data;
+      newGlobals.cards = Array.isArray(data) ? data : [];
       newGlobals.cardDataLoaded = true;
       return newGlobals;
     });
@@ -197,7 +197,11 @@ export function GlobalContextProvider(props) {
       const data = await response.json(); // Should check here that it worked OK
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-        newGlobals.cards.push(data);
+        if (Array.isArray(newGlobals.cards)) {
+          newGlobals.cards.push(data);
+        } else {
+          newGlobals.cards = [data];
+        }
         newGlobals.cardDataLoaded = true;
         return newGlobals;
       });
@@ -213,9 +217,11 @@ export function GlobalContextProvider(props) {
       const data = await response.json(); // Should check here that it worked OK
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-        newGlobals.cards = newGlobals.cards.map((card) =>
-          card.id === data.id ? data : card
-        );
+        if (Array.isArray(newGlobals.cards)) {
+          newGlobals.cards = newGlobals.cards.map((card) =>
+            card.id === data.id ? data : card
+          );
+        }
         return newGlobals;
       });
     }
@@ -261,9 +267,11 @@ export function GlobalContextProvider(props) {
       if (response.status === 204) {
         setGlobals((previousGlobals) => {
           const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-          newGlobals.cards = newGlobals.cards.filter((card) => {
-            return card.id !== command.newVal;
-          });
+          if (Array.isArray(newGlobals.cards)) {
+            newGlobals.cards = newGlobals.cards.filter((card) => {
+              return card.id !== command.newVal;
+            });
+          }
           return newGlobals;
         });
       }
