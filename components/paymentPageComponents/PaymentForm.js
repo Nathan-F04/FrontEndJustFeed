@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import classes from "./PaymentForm.module.css";
-import GlobalContext from "../../pages/store/globalContext";
+import GlobalContext from "../../store/globalContext";
 
 function PaymentForm(props) {
   const globalCtx = useContext(GlobalContext);

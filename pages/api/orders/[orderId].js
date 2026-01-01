@@ -2,7 +2,7 @@ async function handler(req, res) {
   const { orderId } = req.query;
   if (req.method === "PATCH") {
     const response = await fetch(
-      `http://localhost:8003/api/orders/items/${orderId}`,
+      `${process.env.NOTIFICATION_API_URL}/api/orders/items/${orderId}`,
       {
         method: "PATCH",
         body: JSON.stringify(req.body),
@@ -16,7 +16,7 @@ async function handler(req, res) {
   }
   if (req.method === "GET") {
     const response = await fetch(
-      `http://localhost:8003/api/orders/${orderId}`,
+      `${process.env.NOTIFICATION_API_URL}/api/orders/${orderId}`,
       {
         method: "GET",
         headers: {

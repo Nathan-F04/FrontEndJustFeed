@@ -4,7 +4,7 @@ import Button from "../generic/Button";
 import Cart from "../generic/Cart";
 import Sidebar from "./Sidebar";
 import CartPopUp from "./CartPopUp";
-import GlobalContext from "../../pages/store/globalContext";
+import GlobalContext from "../../store/globalContext";
 import { useRouter } from "next/router";
 import Login from "./Login";
 import { GiShoppingCart } from "react-icons/gi";
@@ -37,9 +37,11 @@ function MainNavigation() {
 
   return (
     <header className={classes.header}>
-      {!globalCtx.theGlobalObject.isLoggedIn && <Login />}
       {!globalCtx.theGlobalObject.isLoggedIn && (
-        <div className={classes.backgroundBlur}></div>
+        <>
+          <div className={classes.backgroundBlur}></div>
+          <Login />
+        </>
       )}
       {popupToggle && <Sidebar toggleMenuHide={() => toggleMenuHide()} />}
       {cartpopupToggle && (
@@ -48,22 +50,24 @@ function MainNavigation() {
           toggleMenuHide={() => cartMenuHide()}
         />
       )}
-      {notificationBoxToggle && (
-        <NotificationBox
-        />
-      )}
+      {notificationBoxToggle && <NotificationBox />}
       <HamMenu toggleMenuHide={() => toggleMenuHide()} />
       <div className={classes.v1}></div>
       <img className={classes.logo} src="Just-feed.png" alt="Logo" />
+      <div className={classes.badge}>
+        {globalCtx.theGlobalObject.messages?.length > 0 && (
+          <span>{globalCtx.theGlobalObject.messages.length}</span>
+        )}
+        <Cart
+          maxWidth="70px"
+          icon={<FaBell />}
+          toggleMenuHide={() => notificationBoxHide()}
+        />
+      </div>
       <Cart
         maxWidth="70px"
         icon={<GiShoppingCart />}
         toggleMenuHide={() => cartMenuHide()}
-      />
-      <Cart
-        maxWidth="70px"
-        icon={<FaBell />}
-        toggleMenuHide={() => notificationBoxHide()}
       />
       <Button
         text1="Checkout"

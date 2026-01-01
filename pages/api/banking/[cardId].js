@@ -2,7 +2,7 @@ async function handler(req, res) {
   const { cardId } = req.query;
   if (req.method === "GET") {
     const response = await fetch(
-      `http://localhost:8000/api/banking/${cardId}`,
+      `${process.env.BANKING_API_URL}/api/banking/${cardId}`,
       {
         method: "GET",
         headers: {
@@ -42,3 +42,4 @@ async function handler(req, res) {
 }
 
 export default handler;
+
