@@ -1,7 +1,7 @@
 async function handler(req, res) {
   if (req.method === "POST") {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_ORDER_API_URL}/api/orderReceipt`,
+      `${process.env.ORDER_API_URL}/api/orderReceipt`,
       {
         method: "POST",
         body: JSON.stringify(req.body),
@@ -15,7 +15,7 @@ async function handler(req, res) {
   }
   if (req.method === "GET") {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_ORDER_API_URL}/api/orders/items`,
+      `${process.env.ORDER_API_URL}/api/orders/items`,
       {
         method: "GET",
         headers: {
