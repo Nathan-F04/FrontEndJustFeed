@@ -3,20 +3,21 @@ import { useContext, useRef, useState } from "react";
 import Card from "../ui/Card";
 import Modal from "../generic/Modal";
 import classes from "./NewSettingsForm.module.css";
-import GlobalContext from "../../store/globalContext";
+import GlobalContext from "../../pages/store/globalContext";
+import PastCards from "./PastCards";
 
 function NewSettingsForm(props) {
   const nameInputRef = useRef();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
-  const cardHolderNameInputRef = useRef();
-  const creditCardNumberInputRef = useRef();
-  const expMonthInputRef = useRef();
-  const expYearInputRef = useRef();
-  const cvcInputRef = useRef();
+  const addCardHolderNameInputRef = useRef();
+  const addCreditCardNumberInputRef = useRef();
+  const addExpMonthInputRef = useRef();
+  const addExpYearInputRef = useRef();
+  const addCvcInputRef = useRef();
+  const formRef = useRef();
 
   const [toggleModal, setToggleModal] = useState(false);
-  const [toggleSaveButton, setToggleSaveButton] = useState(false);
   const [toggleAddCardForm, setAddCardForm] = useState(false);
   const [toggleErrorMsg, setToggleErrorMsg] = useState(false);
   const globalCtx = useContext(GlobalContext);
@@ -24,13 +25,14 @@ function NewSettingsForm(props) {
   async function submitCardHandler(event) {
     event.preventDefault();
 
-    const enteredcardHolderName = cardHolderNameInputRef.current.value;
-    const enteredcreditCardNumber = creditCardNumberInputRef.current.value;
-    const enteredexpMonth = expMonthInputRef.current.value;
-    const enteredexpYear = expYearInputRef.current.value;
-    const enteredcvc = cvcInputRef.current.value;
+    const enteredcardHolderName = addCardHolderNameInputRef.current.value;
+    const enteredcreditCardNumber = addCreditCardNumberInputRef.current.value;
+    const enteredexpMonth = addExpMonthInputRef.current.value;
+    const enteredexpYear = addExpYearInputRef.current.value;
+    const enteredcvc = addCvcInputRef.current.value;
 
     const cardData = {
+      user_id: globalCtx.theGlobalObject.userId,
       nameOnCard: enteredcardHolderName,
       creditCardNumber: enteredcreditCardNumber,
       expMonth: parseInt(enteredexpMonth),
@@ -42,26 +44,7 @@ function NewSettingsForm(props) {
     console.log(globalCtx.theGlobalObject.cards);
 
     props.onAddCard(cardData);
-  }
-
-  async function editCardHandler(event) {
-    event.preventDefault();
-
-    const enteredcardHolderName = cardHolderNameInputRef.current.value;
-    const enteredcreditCardNumber = creditCardNumberInputRef.current.value;
-    const enteredexpMonth = expMonthInputRef.current.value;
-    const enteredexpYear = expYearInputRef.current.value;
-    const enteredcvc = cvcInputRef.current.value;
-
-    const cardData = {
-      nameOnCard: enteredcardHolderName,
-      creditCardNumber: enteredcreditCardNumber,
-      expMonth: enteredexpMonth,
-      expYear: enteredexpYear,
-      cvc: enteredcvc,
-    };
-
-    props.onAddCard(cardData);
+    formRef.current.reset();
   }
 
   async function submitDetailsHandler(event) {
@@ -100,10 +83,6 @@ function NewSettingsForm(props) {
 
   function toggleAddCardFormHandler() {
     setAddCardForm(!toggleAddCardForm);
-  }
-
-  function onEdit() {
-    setToggleSaveButton(true);
   }
 
   return (
@@ -155,7 +134,7 @@ function NewSettingsForm(props) {
           </button>
           {toggleAddCardForm && (
             <Card>
-              <form>
+              <form ref={formRef}>
                 <div className={classes.control}>
                   <label htmlFor="name on card">Name on card:</label>
                   <input
@@ -163,7 +142,7 @@ function NewSettingsForm(props) {
                     required
                     id="name on card"
                     placeholder="John"
-                    ref={cardHolderNameInputRef}
+                    ref={addCardHolderNameInputRef}
                   />
                 </div>
                 <div className={classes.control}>
@@ -173,7 +152,7 @@ function NewSettingsForm(props) {
                     required
                     id="card number"
                     placeholder="1234567890123456"
-                    ref={creditCardNumberInputRef}
+                    ref={addCreditCardNumberInputRef}
                   />
                 </div>
                 <div className={classes.control}>
@@ -183,7 +162,7 @@ function NewSettingsForm(props) {
                     required
                     placeholder="12"
                     id="month of expirtion"
-                    ref={expMonthInputRef}
+                    ref={addExpMonthInputRef}
                   />
                 </div>
                 <div className={classes.control}>
@@ -193,7 +172,7 @@ function NewSettingsForm(props) {
                     required
                     placeholder="2025"
                     id="year of expirtion"
-                    ref={expYearInputRef}
+                    ref={addExpYearInputRef}
                   />
                 </div>
                 <div className={classes.control}>
@@ -203,7 +182,7 @@ function NewSettingsForm(props) {
                     placeholder="123"
                     required
                     id="cvc"
-                    ref={cvcInputRef}
+                    ref={addCvcInputRef}
                   />
                 </div>
                 <div className={classes.actions}>
@@ -215,77 +194,19 @@ function NewSettingsForm(props) {
           )}
           <h1>Past Cards:</h1>
           {globalCtx.theGlobalObject.cards.map((card) => (
-            <Card key={card.index()}>
-              <form>
-                <div className={classes.control}>
-                  <label htmlFor="name on card">Name on card:</label>
-                  <input
-                    type="text"
-                    defaultValue={card.nameOnCard}
-                    onChange={onEdit}
-                    required
-                    id="name on card"
-                    ref={cardHolderNameInputRef}
-                  />
-                </div>
-                <div className={classes.control}>
-                  <label htmlFor="card number">Card Number:</label>
-                  <input
-                    type="text"
-                    defaultValue={card.creditCardNumber}
-                    onChange={onEdit}
-                    required
-                    id="card number"
-                    ref={creditCardNumberInputRef}
-                  />
-                </div>
-                <div className={classes.control}>
-                  <label htmlFor="month of expirtion">Month of expiry:</label>
-                  <input
-                    type="text"
-                    defaultValue={card.expMonth}
-                    onChange={onEdit}
-                    required
-                    id="month of expirtion"
-                    ref={expMonthInputRef}
-                  />
-                </div>
-                <div className={classes.control}>
-                  <label htmlFor="year of expirtion">Year of expiry:</label>
-                  <input
-                    type="text"
-                    defaultValue={card.expYear}
-                    onChange={onEdit}
-                    required
-                    id="year of expirtion"
-                    ref={expYearInputRef}
-                  />
-                </div>
-                <div className={classes.control}>
-                  <label htmlFor="cvc">CVC:</label>
-                  <input
-                    type="text"
-                    defaultValue={card.cvc}
-                    onChange={onEdit}
-                    required
-                    id="cvc"
-                    ref={cvcInputRef}
-                  />
-                </div>
-                <div className={classes.actions}>
-                  {/* <button>Set as Active</button> needs to be implemented on the backend */}
-                  <div></div>
-                  {toggleSaveButton && (
-                    <button onClick={editCardHandler}>Save Changes</button>
-                  )}
-                </div>
-              </form>
-            </Card>
+            <PastCards
+              key={card.id}
+              id={card.id}
+              nameOnCard={card.nameOnCard}
+              creditCardNumber={card.creditCardNumber}
+              expMonth={card.expMonth}
+              expYear={card.expYear}
+              cvc={card.cvc}
+            />
           ))}
         </>
       )}
     </div>
   );
 }
-
 export default NewSettingsForm;
