@@ -1,6 +1,6 @@
 async function handler(req, res) {
   if (req.method === "POST") {
-    const response = await fetch("http://localhost:8001/api/login/sign-in", {
+    const response = await fetch(`${process.env.LOGIN_API_URL}/api/login/sign-in`, {
       method: "POST",
       body: JSON.stringify(req.body),
       headers: {

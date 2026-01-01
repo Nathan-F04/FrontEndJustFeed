@@ -15,7 +15,7 @@ async function handler(req, res) {
   }
   if (req.method === "PATCH") {
     const response = await fetch(
-      `http://localhost:8000/api/banking/${cardId}`,
+      `${process.env.BANKING_API_URL}/api/banking/${cardId}`,
       {
         method: "PATCH",
         body: JSON.stringify(req.body),
@@ -29,7 +29,7 @@ async function handler(req, res) {
   }
   if (req.method === "DELETE") {
     const response = await fetch(
-      `http://localhost:8000/api/banking/${cardId}`,
+      `${process.env.BANKING_API_URL}/api/banking/${cardId}`,
       {
         method: "DELETE",
         headers: {
