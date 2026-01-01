@@ -6,7 +6,7 @@ function NewMeetupPage() {
   const globalCtx = useContext(GlobalContext);
 
   return globalCtx.theGlobalObject.isPastOrdersLoaded ? (
-    <OrderItemList orders={globalCtx.theGlobalObject.pastOrders.OrderRead} />
+    <OrderItemList orders={globalCtx.theGlobalObject.pastOrders} />
   ) : null;
 }
 

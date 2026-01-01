@@ -17,7 +17,7 @@ function PaymentForm(props) {
     console.log(catItemsData);
     props.onAddItems(catItemsData);
   }
-  //globalCtx.theGlobalObject.cardDataLoaded ?
+  // globalCtx.theGlobalObject.cardDataLoaded ?
   return (
     <div>
       <form className={classes.form}>
@@ -52,19 +52,15 @@ function PaymentForm(props) {
               type="text"
               id="cname"
               required
-              placeholder={
-                globalCtx.theGlobalObject.cards?.cardInfo?.[0]?.nameOnCard ??
-                "John"
-              }
+              defaultValue={globalCtx.theGlobalObject.cards?.[0]?.nameOnCard}
             />
             <label htmlFor="ccnum">Credit card number</label>
             <input
               type="text"
               id="ccnum"
               required
-              placeholder={
-                globalCtx.theGlobalObject.cards?.cardInfo?.[0]
-                  ?.creditCardNumber ?? "123456789"
+              defaultValue={
+                globalCtx.theGlobalObject.cards?.[0]?.creditCardNumber
               }
             />
             <label htmlFor="expmonth">Exp Month</label>
@@ -72,28 +68,21 @@ function PaymentForm(props) {
               type="text"
               id="expmonth"
               required
-              placeholder={
-                globalCtx.theGlobalObject.cards?.cardInfo?.[0]?.expMonth ?? "12"
-              }
+              defaultValue={globalCtx.theGlobalObject.cards?.[0]?.expMonth}
             />
             <label htmlFor="expyear">Exp Year</label>
             <input
               type="text"
               id="expyear"
               required
-              placeholder={
-                globalCtx.theGlobalObject.cards?.cardInfo?.[0]?.expYear ??
-                "2025"
-              }
+              defaultValue={globalCtx.theGlobalObject.cards?.[0]?.expYear}
             />
             <label htmlFor="cvv">CVV</label>
             <input
               type="text"
               id="cvv"
               required
-              placeholder={
-                globalCtx.theGlobalObject.cards?.cardInfo?.[0]?.cvc ?? "111"
-              }
+              defaultValue={globalCtx.theGlobalObject.cards?.[0]?.cvc}
             />
             <button onClick={payHandler} className={classes.button}>
               Pay now

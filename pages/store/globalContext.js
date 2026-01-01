@@ -1,7 +1,6 @@
 import { createContext, useState, useEffect, useRef } from "react";
 
 const GlobalContext = createContext();
-
 export function GlobalContextProvider(props) {
   const [globals, setGlobals] = useState({
     aString: "init val",
@@ -11,7 +10,7 @@ export function GlobalContextProvider(props) {
     cartItems: [],
     pastOrders: [],
     dataLoaded: false,
-    isLoggedIn: true,
+    isLoggedIn: false,
     cardDataLoaded: false,
     isPastOrdersLoaded: false,
     userId: 0,
@@ -19,7 +18,7 @@ export function GlobalContextProvider(props) {
   });
 
   const ws = useRef(null);
-   
+
   useEffect(() => {
     ws.current = new WebSocket("ws://localhost:8080/ws");
     ws.current.onopen = () => console.log("WebSocket connected");
@@ -32,15 +31,26 @@ export function GlobalContextProvider(props) {
     };
 
     ws.current.onclose = () => console.log("WebSocket disconnected");
-    getAllCards();
-    getAllPastOrders();
-    getAllMeetings();
+    getAllMeetups();
     return () => ws.current.close();
   }, []);
 
-  async function getAllMeetings() {
-    const response = await fetch("/api/orders");
+  useEffect(() => {
+    if (globals.userId != 0) {
+      getAllCards();
+      getAllPastOrders();
+    }
+  }, [globals.userId]);
+
+  async function getAllMeetups() {
+    const response = await fetch("/api/orders", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     let data = await response.json();
+    console.log(data);
     setGlobals((previousGlobals) => {
       const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
       newGlobals.orders = data;
@@ -57,17 +67,17 @@ export function GlobalContextProvider(props) {
       },
     });
     let data = await response.json();
-    console.log([data]);
+    console.log(data);
     setGlobals((previousGlobals) => {
       const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-      newGlobals.cards = [data];
+      newGlobals.cards = data;
       newGlobals.cardDataLoaded = true;
       return newGlobals;
     });
   }
 
   async function getAllPastOrders() {
-    const response = await fetch("/api/add-items", {
+    const response = await fetch(`/api/orders/${globals.userId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -83,7 +93,7 @@ export function GlobalContextProvider(props) {
   }
 
   async function setQuantity(id, newVal) {
-    const response = await fetch(`/api/${id}`, {
+    const response = await fetch(`/api/orders/${id}`, {
       method: "PATCH",
       body: JSON.stringify(newVal),
       headers: {
@@ -129,9 +139,10 @@ export function GlobalContextProvider(props) {
           "Content-Type": "application/json",
         },
       });
-      if (response === 204) {
+      if (response.status === 204) {
         setGlobals((previousGlobals) => {
           const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+          console.log("Working");
           newGlobals.isLoggedIn = false;
           newGlobals.userId = 0;
           return newGlobals;
@@ -151,7 +162,7 @@ export function GlobalContextProvider(props) {
     }
 
     if (command.cmd == "addItems") {
-      const response = await fetch("/api/add-items", {
+      const response = await fetch("/api/orders", {
         method: "POST",
         body: JSON.stringify(command.newVal),
         headers: {
@@ -191,6 +202,23 @@ export function GlobalContextProvider(props) {
         return newGlobals;
       });
     }
+    if (command.cmd == "editCard") {
+      const response = await fetch(`/api/banking/${command.id}`, {
+        method: "PATCH",
+        body: JSON.stringify(command.newVal),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json(); // Should check here that it worked OK
+      setGlobals((previousGlobals) => {
+        const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+        newGlobals.cards = newGlobals.cards.map((card) =>
+          card.id === data.id ? data : card
+        );
+        return newGlobals;
+      });
+    }
     if (command.cmd == "addCartItem") {
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
@@ -222,6 +250,23 @@ export function GlobalContextProvider(props) {
         newGlobals.cartItems.splice(0, newGlobals.cartItems.length);
         return newGlobals;
       });
+    }
+    if (command.cmd == "deleteCard") {
+      const response = await fetch(`/api/banking/${command.newVal}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 204) {
+        setGlobals((previousGlobals) => {
+          const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
+          newGlobals.cards = newGlobals.cards.filter((card) => {
+            return card.id !== command.newVal;
+          });
+          return newGlobals;
+        });
+      }
     }
   }
 
