@@ -11,7 +11,6 @@ export function GlobalContextProvider(props) {
     pastOrders: [],
     dataLoaded: false,
     isLoggedIn: false,
-    cardDataLoaded: false,
     isPastOrdersLoaded: false,
     userId: 0,
     messages: [],
@@ -50,7 +49,6 @@ export function GlobalContextProvider(props) {
       },
     });
     let data = await response.json();
-    console.log(data);
     setGlobals((previousGlobals) => {
       const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
       newGlobals.orders = data;
@@ -67,11 +65,9 @@ export function GlobalContextProvider(props) {
       },
     });
     let data = await response.json();
-    console.log(data);
     setGlobals((previousGlobals) => {
       const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
       newGlobals.cards = data;
-      newGlobals.cardDataLoaded = true;
       return newGlobals;
     });
   }
@@ -142,7 +138,6 @@ export function GlobalContextProvider(props) {
       if (response.status === 204) {
         setGlobals((previousGlobals) => {
           const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
-          console.log("Working");
           newGlobals.isLoggedIn = false;
           newGlobals.userId = 0;
           return newGlobals;
@@ -169,7 +164,7 @@ export function GlobalContextProvider(props) {
           "Content-Type": "application/json",
         },
       });
-      await response.json(); // Should check here that it worked OK
+      await response.json();
       getAllPastOrders();
     }
 
@@ -194,11 +189,10 @@ export function GlobalContextProvider(props) {
           "Content-Type": "application/json",
         },
       });
-      const data = await response.json(); // Should check here that it worked OK
+      const data = await response.json();
       setGlobals((previousGlobals) => {
         const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
         newGlobals.cards.push(data);
-        newGlobals.cardDataLoaded = true;
         return newGlobals;
       });
     }

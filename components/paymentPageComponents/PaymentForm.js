@@ -14,10 +14,8 @@ function PaymentForm(props) {
       created_at: new Date(),
       items: [...globalCtx.theGlobalObject.cartItems],
     };
-    console.log(catItemsData);
     props.onAddItems(catItemsData);
   }
-  // globalCtx.theGlobalObject.cardDataLoaded ?
   return (
     <div>
       <form className={classes.form}>

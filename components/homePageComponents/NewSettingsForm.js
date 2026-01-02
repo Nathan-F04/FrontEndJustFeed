@@ -40,9 +40,6 @@ function NewSettingsForm(props) {
       cvc: parseInt(enteredcvc),
     };
 
-    console.log(cardData);
-    console.log(globalCtx.theGlobalObject.cards);
-
     props.onAddCard(cardData);
     formRef.current.reset();
   }
